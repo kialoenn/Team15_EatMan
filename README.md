@@ -1,18 +1,20 @@
-## My Web Application (Title)
+## My Web Application (EatMan)
+* Author:
+    Man Sun : edit index.html
+
 
 * [General info](#general-info)
 * [Technologies](#technologies)
 * [Contents](#content)
 
 ## General Info
-This browser based web application to ...
+This browser based web application to help user find crowdedness of local restaurants and make a quick virtual line-up
 	
 ## Technologies
 Technologies used for this project:
 * HTML, CSS
 * JavaScript
-* Bootstrap 
-* ...
+* Bootstrap
 	
 ## Content
 Content of the project folder:

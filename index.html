@@ -14,7 +14,32 @@
 
 
     <!-- Optional styles and scripts of your own -->
-
+    <style>
+        /* Set the size of the div element that contains the map */
+        #map {
+            height: 400px;
+            /* The height is 400 pixels */
+            width: 100%;
+            /* The width is the width of the web page */
+        }
+    </style>
+    <script>
+        // Initialize and add the map
+        function initMap() {
+            // The location of Uluru
+            const uluru = { lat: -25.344, lng: 131.036 };
+            // The map, centered at Uluru
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 4,
+                center: uluru,
+            });
+            // The marker, positioned at Uluru
+            const marker = new google.maps.Marker({
+                position: uluru,
+                map: map,
+            });
+        }
+    </script>
 
 </head>
 
@@ -37,6 +62,9 @@
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="#">Login</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="#">Features</a>
                     </li>
                     <li class="nav-item">
@@ -51,13 +79,25 @@
     </nav>
 
     <div class="container">
-        <h1 class="display-4">Hello, World!</h1>
+        <h1 class="display-4">Hello, food lovers! <button type="button" class="btn btn-info">Login</button></h1>
+        <h2 class="display-4">You can find where to eat at this page!</h1>
+        
+        <h4 >Please select the restaurant you would like to go</h3>
+        <!--The div element for the map -->
+        <!--<div id="map"></div>-->
+        <div class="ratio ratio-16x9 bg-light">
+            <div>Google map goes here</div>
+        </div>
     </div>
     <nav class="navbar fixed-bottom navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Fixed bottom</a>
+            <a class="navbar-brand" href="#">Contact Us</a>
         </div>
     </nav>
+
+
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+
     <!----------------------------------------------->
     <!-- JS: Boostrap, Firebase, API related    -->
     <!----------------------------------------------->
@@ -68,7 +108,10 @@
     <!--------------------------------------------------------------------->
     <!-- JS files: Your own JavaScript functions included here    -->
     <!--------------------------------------------------------------------->
-
+    <script>
+        src = "https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap&libraries=&v=weekly"
+        async
+    </script>
 </body>
 
 </html>
