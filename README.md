@@ -1,6 +1,6 @@
 ## My Web Application (EatMan)
 * Author:
-    Man Sun : edit index.html
+    Man Sun : edit index.html, I was trying to add google Map API to page but it seems like this feature does not support client-side browser, so I guess this would work in Firebase.
 
 
 * [General info](#general-info)
