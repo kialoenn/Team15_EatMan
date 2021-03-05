@@ -1,0 +1,24 @@
+[33mcommit 5e187764d9d93c277cf9d605c907df82faf91b98[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Harleen Kaur Saini <hsaini19@my.bcit.ca>
+Date:   Thu Mar 4 05:54:26 2021 +0530
+
+    Edited Author Details
+
+[33mcommit 62b8baf46b50c3124bcf3ab84f455713f3cb5b63[m
+Merge: 2c980c7 4986c4d
+Author: Harleen Kaur Saini <hsaini19@my.bcit.ca>
+Date:   Thu Mar 4 05:46:49 2021 +0530
+
+    Edit Conflict
+
+[33mcommit 2c980c73881a764b1618cd45c24b1a9826bd9925[m
+Author: Harleen Kaur Saini <hsaini19@my.bcit.ca>
+Date:   Thu Mar 4 05:44:12 2021 +0530
+
+    Test for Conflict
+
+[33mcommit 48c49195ae881b737feae98a51e8d59289b40f89[m
+Author: Harleen Kaur Saini <hsaini19@my.bcit.ca>
+Date:   Thu Mar 4 05:11:34 2021 +0530
+
+     Added main.html file

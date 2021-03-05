@@ -14,32 +14,7 @@
 
 
     <!-- Optional styles and scripts of your own -->
-    <style>
-        /* Set the size of the div element that contains the map */
-        #map {
-            height: 400px;
-            /* The height is 400 pixels */
-            width: 100%;
-            /* The width is the width of the web page */
-        }
-    </style>
-    <script>
-        // Initialize and add the map
-        function initMap() {
-            // The location of Uluru
-            const uluru = { lat: -25.344, lng: 131.036 };
-            // The map, centered at Uluru
-            const map = new google.maps.Map(document.getElementById("map"), {
-                zoom: 4,
-                center: uluru,
-            });
-            // The marker, positioned at Uluru
-            const marker = new google.maps.Marker({
-                position: uluru,
-                map: map,
-            });
-        }
-    </script>
+
 
 </head>
 
@@ -62,13 +37,13 @@
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Login</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="#">Features</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
                     </li>
                 </ul>
             </div>
@@ -76,31 +51,19 @@
     </nav>
 
     <div class="container">
-        <h1 class="display-4">Hello, food lovers! <button type="button" class="btn btn-info">Login</button></h1>
-        <h2 class="display-4">You can find where to eat at this page!</h1>
-
-            <h4>Please select the restaurant you would like to go</h3>
-<<<<<<< HEAD
-            <h4>Restaurants</h4>    
-=======
-                <p>Test of conflict</p>
-                <p>Test 2 </p>
->>>>>>> 6c5707f50844fde68602a383d7a666713b58c75c
-                <!--The div element for the map -->
-                <!--<div id="map"></div>-->
-                <div class="ratio ratio-16x9 bg-light">
-                    <div>Google map goes here</div>
-                </div>
+        <h1 class="display-4">Welcome to Eat Man!</h1>
+        <h2> What would you like to order today? </h2>
+        <h3 style="color:blue;">Chinese Food </h3>
+        <h3 style="color:blue;">Continental Dishes</h3>
+        <h3 style="color:blue;"> Indian Food</h3>
+        
+        <input type="text"  name="Area" id="Area"  tabindex="1" placeholder="Which Area is Nearby" maxlength="30">
     </div>
     <nav class="navbar fixed-bottom navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Contact Us</a>
+            <a class="navbar-brand" href="#">Fixed bottom</a>
         </div>
     </nav>
-
-
-    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
-
     <!----------------------------------------------->
     <!-- JS: Boostrap, Firebase, API related    -->
     <!----------------------------------------------->
@@ -111,10 +74,5 @@
     <!--------------------------------------------------------------------->
     <!-- JS files: Your own JavaScript functions included here    -->
     <!--------------------------------------------------------------------->
-    <script>
-        src = "https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap&libraries=&v=weekly"
-        async
-    </script>
-</body>
 
-</html>
+</body>
