@@ -23,23 +23,6 @@
             /* The width is the width of the web page */
         }
     </style>
-    <script>
-        // Initialize and add the map
-        function initMap() {
-            // The location of Uluru
-            const uluru = { lat: -25.344, lng: 131.036 };
-            // The map, centered at Uluru
-            const map = new google.maps.Map(document.getElementById("map"), {
-                zoom: 4,
-                center: uluru,
-            });
-            // The marker, positioned at Uluru
-            const marker = new google.maps.Marker({
-                position: uluru,
-                map: map,
-            });
-        }
-    </script>
 
 </head>
 
@@ -101,7 +84,7 @@
     <!----------------------------------------------->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
-        </script>
+    </script>
 
     <!--------------------------------------------------------------------->
     <!-- JS files: Your own JavaScript functions included here    -->
@@ -109,6 +92,24 @@
     <script>
         src = "https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap&libraries=&v=weekly"
         async
+    </script>
+    <script>
+        // Initialize and add the map
+        function initMap() {
+            // The location of Uluru
+            const uluru = { lat: -25.344, lng: 131.036 };
+            // The map, centered at Uluru
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 4,
+                center: uluru,
+            });
+            // The marker, positioned at Uluru
+            const marker = new google.maps.Marker({
+                position: uluru,
+                map: map,
+            });
+        }
+        initMap();
     </script>
 </body>
 
