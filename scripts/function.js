@@ -53,5 +53,3 @@ function writeRestaurants() {
     });
 }
 //writeRestaurants();
-
-
