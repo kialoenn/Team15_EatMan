@@ -1,19 +1,17 @@
 function sayHello() {
-    firebase.auth().onAuthStateChanged(function (user) {
-        if (user) {
-            console.log(user.uid);
+    firebase.auth().onAuthStateChanged(function (hello) {
+        if (hello) {
+            console.log(hello.uid);
             db.collection("ACCOUNT")
-                .doc(user.uid)
+                .doc(hello.uid)
                 .get()
                 .then(function (doc) {
-                    var name = doc.data().name
                     console.log(doc.data().name);
+                    var name = doc.data().name;
                     $("#username").text(name);
                 })
-        } else {
-            // no user signed in
         }
-    });
+    })
 }
 sayHello();
 
