@@ -51,3 +51,26 @@ function writeRestaurants() {
     });
 }
 //writeRestaurants();
+
+function pastQueues() {
+    var restaurantsRef = db.collection("history");
+    restaurantsRef.add({
+        Restaurant_Name: "Milestone",
+        Date: "2021-02-27",
+    })
+}
+
+function viewHistory() {
+    db.collection("history")
+        .get()
+        .then(function (snap) {
+            snap.forEach(function (doc) {
+                var name = doc.data().Restaurant_Name;
+                var date = doc.data().Date;
+                console.log(n);
+                var newdom = "<p> " + name + " " + date + "</p>";
+                    $("#history-goes-here").append(newdom);
+            })
+        })
+}
+viewHistory();
