@@ -51,3 +51,14 @@ function writeRestaurants() {
     });
 }
 //writeRestaurants();
+
+function writeProfile() {
+    var profileRef = db.collection("PROFILE");
+    profileRef.add({
+        USERNAME: "donalllllld",
+        NAME: "Donald Trump",
+        PHONE: "(604)430-5000",
+        PROFILE_IMG: "donald.jpg",
+    });
+}
+writeProfile();
