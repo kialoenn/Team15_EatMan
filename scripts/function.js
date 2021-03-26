@@ -1,8 +1,8 @@
 function sayHello() {
-    firebase.auth().onAuthStateChanged(function (hello) {
+    firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
             console.log(user.uid);
-            db.collection("users")
+            db.collection("ACCOUNT")
                 .doc(user.uid)
                 .get()
                 .then(function (doc) {
