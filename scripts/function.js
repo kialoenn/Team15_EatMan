@@ -69,7 +69,7 @@ function viewHistory() {
                 var date = doc.data().Date;
                 console.log(n);
                 var newdom = "<p> " + name + " " + date + "</p>";
-                    $("#history-goes-here").append(newdom);
+                $("#history-goes-here").append(newdom);
             })
         })
 }
@@ -84,3 +84,54 @@ function writeProfile() {
     });
 }
 writeProfile();
+
+let map;
+
+function initMap() {
+    map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: 49.2810718309468, lng: -123.11683978616684 },
+        zoom: 15,
+        mapTypeId: 'roadmap',
+        mapId:'fb878b6e50d10a04',
+        mapTypeControl: false,
+        streetViewControl: false,
+    });
+    infoWindow = new google.maps.InfoWindow();
+    const locationButton = document.createElement("button");
+    locationButton.textContent = "Pan to Current Location";
+    locationButton.classList.add("custom-map-control-button");
+    map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
+    locationButton.addEventListener("click", () => {
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude,
+                    };
+                    infoWindow.setPosition(pos);
+                    infoWindow.setContent("Location found.");
+                    infoWindow.open(map);
+                    map.setCenter(pos);
+                },
+                () => {
+                    handleLocationError(true, infoWindow, map.getCenter());
+                }
+            );
+        } else {
+            // Browser doesn't support Geolocation
+            handleLocationError(false, infoWindow, map.getCenter());
+        }
+    });
+}
+
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+    infoWindow.setPosition(pos);
+    infoWindow.setContent(
+      browserHasGeolocation
+        ? "Error: The Geolocation service failed."
+        : "Error: Your browser doesn't support geolocation."
+    );
+    infoWindow.open(map);
+  }
