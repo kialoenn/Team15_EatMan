@@ -2,6 +2,7 @@
 function writeRestaurants() {
     var restaurantsRef = db.collection("restaurants");
     restaurantsRef.add({
+        id: "jd",
         name: "JapaDog",
         geometry: {
             lat: 49.2802458,
@@ -10,9 +11,10 @@ function writeRestaurants() {
         phone: "(604)430-5000",
         address: "530 Robson St, Vancouver, BC V6B 2B7",
         time: "8:00AM TO 10:30PM",
-        queue: 15,
+        queue: ['in-house', 'in-house', 'in-house', 'in-house', 'in-house', 'in-house'],
     });
     restaurantsRef.add({
+        id: "np",
         name: "NoodleBox",
         geometry: {
             lat: 49.279134,
@@ -21,40 +23,43 @@ function writeRestaurants() {
         phone: "(604)430-5000",
         address: "839 Homer St, Vancouver, BC V6B 2W2",
         time: "8:00AM TO 10:30PM",
-        queue: 10,
+        queue: ['in-house', 'in-house', 'in-house', 'in-house', 'in-house', 'in-house'],
     });
     restaurantsRef.add({
-        name: "JapaDog",
+        id: "gs",
+        name: "Gotham Steakhouse & Cocktail Bar",
         geometry: {
-            lat: 49.2802458,
-            lng: -123.1183486
+            lat: 49.283054656776784,
+            lng: -123.11594818363048
         },
-        phone: "(604)430-5000",
-        address: "530 Robson St, Vancouver, BC V6B 2B7",
-        time: "8:00AM TO 10:30PM",
-        queue: 15,
+        phone: "(604)605-8282",
+        address: "615 Seymour St, Vancouver, BC V6B 3K3",
+        time: "8:00AM TO 11:30PM",
+        queue: ['in-house', 'in-house', 'in-house', 'in-house', 'in-house', 'in-house'],
     });
-    estaurantsRef.add({
-        name: "JapaDog",
+    restaurantsRef.add({
+        id: "br",
+        name: "Bacchus Restaurant & Lounge",
         geometry: {
-            lat: 49.2802458,
-            lng: -123.1183486
+            lat: 49.28238334581804,
+            lng:  -123.12260272731261
         },
-        phone: "(604)430-5000",
-        address: "530 Robson St, Vancouver, BC V6B 2B7",
+        phone: "(604)608-5319",
+        address: "845 Hornby St, Vancouver, BC V6Z 1V1",
         time: "8:00AM TO 10:30PM",
-        queue: 15,
+        queue: ['in-house', 'in-house', 'in-house', 'in-house', 'in-house', 'in-house'],
     });
-    estaurantsRef.add({
-        name: "JapaDog",
+    restaurantsRef.add({
+        id: "ek",
+        name: "Earls Kitchen + Bar",
         geometry: {
-            lat: 49.2802458,
-            lng: -123.1183486
+            lat: 49.281720192945016, 
+            lng: -123.12371034640614
         },
-        phone: "(604)430-5000",
-        address: "530 Robson St, Vancouver, BC V6B 2B7",
+        phone: "(604)682-6700",
+        address: "905 Hornby St, Vancouver, BC V6Z 1V3",
         time: "8:00AM TO 10:30PM",
-        queue: 15,
+        queue: ['in-house', 'in-house', 'in-house', 'in-house', 'in-house', 'in-house'],
     });
 }
 function pastQueues() {
@@ -100,7 +105,6 @@ function viewHistory() {
             snap.forEach(function (doc) {
                 var name = doc.data().Restaurant_Name;
                 var date = doc.data().Date;
-                console.log(n);
                 var newdom = "<p> " + name + " " + date + "</p>";
                 $("#history-goes-here").append(newdom);
             })
