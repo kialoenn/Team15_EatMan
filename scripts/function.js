@@ -2,7 +2,6 @@
 function writeRestaurants() {
     var restaurantsRef = db.collection("restaurants");
     restaurantsRef.add({
-        id: "jd",
         name: "JapaDog",
         geometry: {
             lat: 49.2802458,
@@ -14,7 +13,6 @@ function writeRestaurants() {
         queue: ['in-house', 'in-house', 'in-house', 'in-house', 'in-house', 'in-house'],
     });
     restaurantsRef.add({
-        id: "np",
         name: "NoodleBox",
         geometry: {
             lat: 49.279134,
@@ -26,7 +24,6 @@ function writeRestaurants() {
         queue: ['in-house', 'in-house', 'in-house', 'in-house', 'in-house', 'in-house'],
     });
     restaurantsRef.add({
-        id: "gs",
         name: "Gotham Steakhouse & Cocktail Bar",
         geometry: {
             lat: 49.283054656776784,
@@ -38,7 +35,6 @@ function writeRestaurants() {
         queue: ['in-house', 'in-house', 'in-house', 'in-house', 'in-house', 'in-house'],
     });
     restaurantsRef.add({
-        id: "br",
         name: "Bacchus Restaurant & Lounge",
         geometry: {
             lat: 49.28238334581804,
@@ -50,7 +46,6 @@ function writeRestaurants() {
         queue: ['in-house', 'in-house', 'in-house', 'in-house', 'in-house', 'in-house'],
     });
     restaurantsRef.add({
-        id: "ek",
         name: "Earls Kitchen + Bar",
         geometry: {
             lat: 49.281720192945016, 
@@ -85,7 +80,7 @@ function sayHello() {
     firebase.auth().onAuthStateChanged(function (hello) {
         if (hello) {
             console.log(hello.uid);
-            db.collection("ACCOUNT")
+            db.collection("users")
                 .doc(hello.uid)
                 .get()
                 .then(function (doc) {
