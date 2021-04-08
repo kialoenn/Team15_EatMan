@@ -11,3 +11,23 @@
     cursor: pointer;
     float: right;
   }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+
+  }
+  
+  li {
+    background-color: #f1f1f1;
+    padding: 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 1.25rem;
+    cursor: pointer;
+  }
+  
+  li:nth-child(odd) {
+    background-color: #fcfcfc;
+  }
