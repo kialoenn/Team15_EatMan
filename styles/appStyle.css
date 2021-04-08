@@ -56,7 +56,7 @@
         flex-grow: 0;
       }
       
-      ul {
+      /* ul {
         list-style-type: none;
         padding: 0;
         margin: 0;
@@ -94,6 +94,6 @@
         background-color: #9fc1ee;
         color: #c5d4f0;
         cursor: auto;
-      }
+      } */
 
      
