@@ -96,16 +96,4 @@
         cursor: auto;
       }
 
-      .rest_img{
-        max-height: 300px;
-        max-width: 90%;
-      }
-      .fa-plus-square{
-        color: #1a73e8;
-        cursor: pointer;
-      }
-      .fa-minus-square{
-        color: red;
-        cursor: pointer;
-        float: right;
-      }
+     
