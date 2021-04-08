@@ -61,20 +61,10 @@
     <div class="container">
         <h1 class="display-4">Hello, food lovers! <button type="button" class="btn btn-info">Login</button></h1>
         <h2 class="display-4">You can find where to eat at this page!</h1>
-
-            <h4>Please select the restaurant you would like to go</h3>
-            <h4>Restaurants</h4>    
-                <!--The div element for the map -->
-                <!--<div id="map"></div>-->
-                <div class="ratio ratio-16x9 bg-light">
-                    <div>Google map goes here</div>
-                </div>
+            <a href="login.html"><button>User Login</button></a>
+            <a href="ownerLogin.html"><button>Owner Login</button></a>
     </div>
-    <nav class="navbar fixed-bottom navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Contact Us</a>
-        </div>
-    </nav>
+
 
 
     <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
@@ -89,30 +79,10 @@
     <!--------------------------------------------------------------------->
     <!-- JS files: Your own JavaScript functions included here    -->
     <!--------------------------------------------------------------------->
-    <script>
-        src = "https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap&libraries=&v=weekly"
-        async
-    </script>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    
-    <script>
-        // Initialize and add the map
-        function initMap() {
-            // The location of Uluru
-            const uluru = { lat: -25.344, lng: 131.036 };
-            // The map, centered at Uluru
-            const map = new google.maps.Map(document.getElementById("map"), {
-                zoom: 4,
-                center: uluru,
-            });
-            // The marker, positioned at Uluru
-            const marker = new google.maps.Marker({
-                position: uluru,
-                map: map,
-            });
-        }
-        initMap();
-    </script>
+
+
 </body>
 
 </html>
