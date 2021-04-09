@@ -1,11 +1,11 @@
 var firebaseConfig = {
-    apiKey: "AIzaSyAsS-NgdLNtD_wy0UGftvZ5O4dDeWn4cC8",
-    authDomain: "man-s-eat.firebaseapp.com",
-    projectId: "man-s-eat",
-    storageBucket: "man-s-eat.appspot.com",
-    messagingSenderId: "784972971331",
-    appId: "1:784972971331:web:29d991281ede35e2e0c3f6",
-    measurementId: "G-EE7LR9RRVM"
+    apiKey: "AIzaSyAN9eMlLSukTwO2MSjZqZHfVdHqglpK-FE",
+    authDomain: "eatman.firebaseapp.com",
+    projectId: "eatman",
+    storageBucket: "eatman.appspot.com",
+    messagingSenderId: "96228174293",
+    appId: "1:96228174293:web:5dbf55a2657098e52b755c",
+    measurementId: "G-FRQ6TY1R2C"
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
