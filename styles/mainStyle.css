@@ -29,33 +29,25 @@
         background: #ebebeb;
       }
 
-      #container {
-        height: 100%;
-        display: grid;
-        grid-template-areas: 
-        'map'
-        'sidebar'
-      }
-      
-      #sidebar {
-
-        padding: 1rem;
-        grid-area: 'sidebar';
-        box-sizing: border-box;
-
-      }
       
       #map {
           grid-area: 'map';
         height: 50%;
       }
       
-      h2 {
-        font-size: 1.5rem;
-        margin: 0 0 5px 0;
-        flex-grow: 0;
+      #restaurantsList > div{
+        border: 5px solid black;
+        margin-bottom: 15px;
       }
-      
+
+      .hide {
+        display: none;
+      }
+      .active {
+        display: block;
+    }
+
+
       /* ul {
         list-style-type: none;
         padding: 0;
@@ -95,7 +87,7 @@
         color: #c5d4f0;
         cursor: auto;
       } */
-
+/* 
       .rest_img{
         max-height: 300px;
         max-width: 90%;
@@ -108,4 +100,4 @@
         color: red;
         cursor: pointer;
         float: right;
-      }
+      } */

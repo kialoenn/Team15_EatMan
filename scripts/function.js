@@ -107,34 +107,3 @@ function viewHistory() {
 }
 viewHistory();
 
-/**
- * Google map initialize
- */
-function initMap() {
-    // Create the map.
-    let place = {
-        lat: 49.2810718309468,
-        lng: -123.11683978616684
-    };
-    const map = new google.maps.Map(document.getElementById("map"), {
-        center: place,
-        zoom: 16,
-        mapId: "8d193001f940fde3",
-    });
-
-    function displayRestautant() {
-        db.collection("restaurants")
-            .get()
-            .then(function (snapcollection) {
-                snapcollection.forEach(function (doc) {
-                    console.log(doc.data().geometry);
-                    const loc = doc.data().geometry;
-                    new google.maps.Marker({
-                        position: loc,
-                        map: map,
-                    });
-                })
-            })
-    }
-    displayRestautant();
-};
