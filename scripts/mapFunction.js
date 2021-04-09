@@ -39,9 +39,10 @@ function displayRestautant() {
                 var queue = doc.data().queue.length * 5;
                 var address = doc.data().address;
                 var phone = doc.data().phone;
-                $("#restaurantsList").append("<div id='" + doc.id + "'>" + "<p>" + name + "</p>" + "<p>Estimated time: " + queue + "minutes</p>"
-                    + "<div class = 'hide' id = 'detail" + doc.id + "'><p>Address: " + address + "</p>" + "<p>phone: " + phone + "</p></div></div>");
+                $("#restaurantsList").append("<div id='" + doc.id + "'>" + "<p>" + name + "</p>" + "<p>Estimated time: " + queue + "minutes</p>" +
+                    "<button id='button" + doc.id + "'> Queue Up</button>" + "<div class = 'hide' id = 'detail" + doc.id + "'><p>Address: " + address + "</p>" + "<p>phone: " + phone + "</p></div></div>");
                 addRestaurantListener(doc.id);
+                addQueueListener(doc.id);
             })
         })
 }
@@ -52,9 +53,43 @@ function addRestaurantListener(id) {
     var detailId = "detail" + id;
     var detail = document.getElementById(detailId);
     var restaurant = document.getElementById(id);
-    restaurant.addEventListener("click", function() {
+    restaurant.addEventListener("click", function () {
         console.log("clicked");
         console.log(detailId);
         detail.classList.toggle('active');
+    })
+}
+
+function addQueueListener(id) {
+    
+    var userName;
+    firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+            console.log(user.uid);
+            db.collection("users")
+                .doc(user.uid)
+                .get()
+                .then(function (doc) {
+                    userName = doc.data().name;
+                    queueUp(userName, id)
+                })
+        }
+    })
+    
+}
+
+function queueUp(userName, id) {
+    var buttonId = "button" + id;
+    var button = document.getElementById(buttonId);
+    button.addEventListener("click", function () {
+        db.collection("restaurants")
+            .doc(id)
+            .update({
+
+                queue: firebase.firestore.FieldValue.arrayUnion(userName),
+            }).then(function () {
+                console.log("added: " + userName);
+            })
+
     })
 }
