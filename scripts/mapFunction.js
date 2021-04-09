@@ -80,14 +80,18 @@ function addQueueListener(userName, id) {
     var buttonId = "button" + id;
     var button = document.getElementById(buttonId);
     button.addEventListener("click", function () {
-        db.collection("restaurants")
+        var r = confirm("Are you sure?");
+        if (r == true) {
+            db.collection("restaurants")
             .doc(id)
             .update({
 
-                queue: firebase.firestore.FieldValue.arrayUnion(userName),
+                queue: firebase.firestore.FieldValue.arrayUnion({name : userName, id: Date.now()}),
             }).then(function () {
                 console.log("added: " + userName);
             })
+        }
+        
 
     })
 }
