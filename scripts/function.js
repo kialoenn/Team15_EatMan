@@ -127,12 +127,15 @@ function initMap() {
             .get()
             .then(function (snapcollection) {
                 snapcollection.forEach(function (doc) {
+                    
                     console.log(doc.data().geometry);
                     const loc = doc.data().geometry;
                     new google.maps.Marker({
                         position: loc,
                         map: map,
+
                     });
+
                 })
             })
     }
