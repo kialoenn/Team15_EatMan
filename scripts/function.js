@@ -79,12 +79,10 @@ function writeProfile() {
 function sayHello() {
     firebase.auth().onAuthStateChanged(function (hello) {
         if (hello) {
-            console.log(hello.uid);
             db.collection("users")
                 .doc(hello.uid)
                 .get()
                 .then(function (doc) {
-                    console.log(doc.data().name);
                     var name = doc.data().name;
                     $("#username").text(name);
                 })

@@ -18,7 +18,6 @@ function initMap() {
             .get()
             .then(function (snapcollection) {
                 snapcollection.forEach(function (doc) {
-                    console.log(doc.data().geometry);
                     const loc = doc.data().geometry;
                     new google.maps.Marker({
                         position: loc,
@@ -42,7 +41,7 @@ function displayRestautant() {
                 $("#restaurantsList").append("<div id='" + doc.id + "'>" + "<p>" + name + "</p>" + "<p>Estimated time: " + queue + "minutes</p>" +
                     "<button id='button" + doc.id + "'> Queue Up</button>" + "<div class = 'hide' id = 'detail" + doc.id + "'><p>Address: " + address + "</p>" + "<p>phone: " + phone + "</p></div></div>");
                 addRestaurantListener(doc.id);
-                addQueueListener(doc.id);
+                getUserQueueReady(doc.id);
             })
         })
 }
@@ -60,25 +59,24 @@ function addRestaurantListener(id) {
     })
 }
 
-function addQueueListener(id) {
+function getUserQueueReady(id) {
     
     var userName;
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
-            console.log(user.uid);
             db.collection("users")
                 .doc(user.uid)
                 .get()
                 .then(function (doc) {
                     userName = doc.data().name;
-                    queueUp(userName, id)
+                    addQueueListener(userName, id)
                 })
         }
     })
     
 }
 
-function queueUp(userName, id) {
+function addQueueListener(userName, id) {
     var buttonId = "button" + id;
     var button = document.getElementById(buttonId);
     button.addEventListener("click", function () {
