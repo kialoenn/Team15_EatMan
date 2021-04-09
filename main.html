@@ -17,7 +17,7 @@
     integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
   <!-- Optional styles and scripts of your own -->
   <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-  <link rel="stylesheet" href="styles/appStyle.css">
+  <link rel="stylesheet" href="styles/mainStyle.css">
 
 </head>
 
@@ -57,15 +57,8 @@
 
   <!-- Map -->
   <div id="map"></div>
+  <div id="restaurantsList"></div>
 
-  <div id="container">
-    <div id="map"></div>
-    <div id="sidebar">
-      <h2>Results</h2>
-      <ul id="places"></ul>
-      <button id="more">Load more results</button>
-    </div>
-  </div>
   <!----------------------------------------------->
   <!-- JS: Boostrap, Firebase, API related    -->
   <!----------------------------------------------->
@@ -89,7 +82,11 @@
   <!-- JS files: Your own JavaScript functions included here    -->
   <!--------------------------------------------------------------------->
   <script src="scripts/function.js"></script>
+<<<<<<< HEAD
   <script src ="scripts/restaurants.js"></script>
+=======
+  <script src="scripts/mapFunction.js"></script>
+>>>>>>> 6e8c5c255e4bc088b1fd707374dc8ddce535422c
   <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAN9eMlLSukTwO2MSjZqZHfVdHqglpK-FE&callback=initMap&libraries=places&v=weekly&map_ids=8d193001f940fde3"
       async

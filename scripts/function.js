@@ -107,6 +107,7 @@ function viewHistory() {
 }
 viewHistory();
 
+<<<<<<< HEAD
 /**
  * Google map initialize
  */
@@ -141,3 +142,5 @@ function initMap() {
     }
     displayRestautant();
 };
+=======
+>>>>>>> 6e8c5c255e4bc088b1fd707374dc8ddce535422c
