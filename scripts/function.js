@@ -1,8 +1,86 @@
+/** Write database functions, only need to call one time */
+function writeRestaurants() {
+    var restaurantsRef = db.collection("restaurants");
+    restaurantsRef.add({
+        name: "JapaDog",
+        geometry: {
+            lat: 49.2802458,
+            lng: -123.1183486
+        },
+        phone: "(604)430-5000",
+        address: "530 Robson St, Vancouver, BC V6B 2B7",
+        time: "8:00AM TO 10:30PM",
+        queue: ['in-house', 'in-house', 'in-house', 'in-house', 'in-house', 'in-house'],
+    });
+    restaurantsRef.add({
+        name: "NoodleBox",
+        geometry: {
+            lat: 49.279134,
+            lng: -123.11768
+        },
+        phone: "(604)430-5000",
+        address: "839 Homer St, Vancouver, BC V6B 2W2",
+        time: "8:00AM TO 10:30PM",
+        queue: ['in-house', 'in-house', 'in-house', 'in-house', 'in-house', 'in-house'],
+    });
+    restaurantsRef.add({
+        name: "Gotham Steakhouse & Cocktail Bar",
+        geometry: {
+            lat: 49.283054656776784,
+            lng: -123.11594818363048
+        },
+        phone: "(604)605-8282",
+        address: "615 Seymour St, Vancouver, BC V6B 3K3",
+        time: "8:00AM TO 11:30PM",
+        queue: ['in-house', 'in-house', 'in-house', 'in-house', 'in-house', 'in-house'],
+    });
+    restaurantsRef.add({
+        name: "Bacchus Restaurant & Lounge",
+        geometry: {
+            lat: 49.28238334581804,
+            lng:  -123.12260272731261
+        },
+        phone: "(604)608-5319",
+        address: "845 Hornby St, Vancouver, BC V6Z 1V1",
+        time: "8:00AM TO 10:30PM",
+        queue: ['in-house', 'in-house', 'in-house', 'in-house', 'in-house', 'in-house'],
+    });
+    restaurantsRef.add({
+        name: "Earls Kitchen + Bar",
+        geometry: {
+            lat: 49.281720192945016, 
+            lng: -123.12371034640614
+        },
+        phone: "(604)682-6700",
+        address: "905 Hornby St, Vancouver, BC V6Z 1V3",
+        time: "8:00AM TO 10:30PM",
+        queue: ['in-house', 'in-house', 'in-house', 'in-house', 'in-house', 'in-house'],
+    });
+}
+function pastQueues() {
+    var restaurantsRef = db.collection("history");
+    restaurantsRef.add({
+        Restaurant_Name: "Milestone",
+        Date: "2021-02-27",
+    })
+}
+
+function writeProfile() {
+    var profileRef = db.collection("PROFILE");
+    profileRef.add({
+        USERNAME: "donalllllld",
+        NAME: "Donald Trump",
+        PHONE: "(604)430-5000",
+        PROFILE_IMG: "donald.jpg",
+    });
+}
+
+/** User interact functions */
 function sayHello() {
     firebase.auth().onAuthStateChanged(function (hello) {
         if (hello) {
             console.log(hello.uid);
-            db.collection("ACCOUNT")
+            db.collection("users")
                 .doc(hello.uid)
                 .get()
                 .then(function (doc) {
@@ -15,51 +93,6 @@ function sayHello() {
 }
 sayHello();
 
-function writeRestaurants() {
-    var restaurantsRef = db.collection("RESTAURANT");
-    restaurantsRef.add({
-        RESTAURANT_ID: "CAT1",
-        RESTAURANT_NAME: "Catcus Club Cafe",
-        RESTAURANT_ID: "7320 Market Crossing",
-        RESTAURANT_PHONE: "(604)430-5000",
-        RESTAURANT_PICTURE: "CAT1.jpg",
-        RESTAURANT_TIME: "8:00AM TO 10:30PM",
-    });
-    restaurantsRef.add({
-        RESTAURANT_ID: "CAT2",
-        RESTAURANT_NAME: "Catcus Club Cafe",
-        RESTAURANT_ID: "6090 Silver Dr",
-        RESTAURANT_PHONE: "(604)291-9339",
-        RESTAURANT_PICTURE: "CAT2.jpg",
-        RESTAURANT_TIME: "8:00AM TO 10:30PM",
-    });
-    restaurantsRef.add({
-        RESTAURANT_ID: "CAT3",
-        RESTAURANT_NAME: "Catcus Club Cafe",
-        RESTAURANT_ID: "4219 B Lougheed Hwy",
-        RESTAURANT_PHONE: "(604)291-6606",
-        RESTAURANT_PICTURE: "CAT3.jpg",
-        RESTAURANT_TIME: "8:00AM TO 10:30PM",
-    });
-    restaurantsRef.add({
-        RESTAURANT_ID: "CAFE106",
-        RESTAURANT_NAME: "Cafe 106",
-        RESTAURANT_ID: "6588 Royal Oak Ave Unit 106",
-        RESTAURANT_PHONE: "(604)438-1220",
-        RESTAURANT_PICTURE: "CAFE106.jpg",
-        RESTAURANT_TIME: "11:00AM TO 11:30PM",
-    });
-}
-//writeRestaurants();
-
-function pastQueues() {
-    var restaurantsRef = db.collection("history");
-    restaurantsRef.add({
-        Restaurant_Name: "Milestone",
-        Date: "2021-02-27",
-    })
-}
-
 function viewHistory() {
     db.collection("history")
         .get()
@@ -67,71 +100,41 @@ function viewHistory() {
             snap.forEach(function (doc) {
                 var name = doc.data().Restaurant_Name;
                 var date = doc.data().Date;
-                console.log(n);
                 var newdom = "<p> " + name + " " + date + "</p>";
                 $("#history-goes-here").append(newdom);
             })
         })
 }
 viewHistory();
-function writeProfile() {
-    var profileRef = db.collection("PROFILE");
-    profileRef.add({
-        USERNAME: "donalllllld",
-        NAME: "Donald Trump",
-        PHONE: "(604)430-5000",
-        PROFILE_IMG: "donald.jpg",
-    });
-}
-writeProfile();
 
-let map;
-
+/**
+ * Google map initialize
+ */
 function initMap() {
-    map = new google.maps.Map(document.getElementById("map"), {
-        center: { lat: 49.2810718309468, lng: -123.11683978616684 },
-        zoom: 15,
-        mapTypeId: 'roadmap',
-        mapId:'fb878b6e50d10a04',
-        mapTypeControl: false,
-        streetViewControl: false,
+    // Create the map.
+    let place = {
+        lat: 49.2810718309468,
+        lng: -123.11683978616684
+    };
+    const map = new google.maps.Map(document.getElementById("map"), {
+        center: place,
+        zoom: 16,
+        mapId: "8d193001f940fde3",
     });
-    infoWindow = new google.maps.InfoWindow();
-    const locationButton = document.createElement("button");
-    locationButton.textContent = "Pan to Current Location";
-    locationButton.classList.add("custom-map-control-button");
-    map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
-    locationButton.addEventListener("click", () => {
-        // Try HTML5 geolocation.
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    const pos = {
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude,
-                    };
-                    infoWindow.setPosition(pos);
-                    infoWindow.setContent("Location found.");
-                    infoWindow.open(map);
-                    map.setCenter(pos);
-                },
-                () => {
-                    handleLocationError(true, infoWindow, map.getCenter());
-                }
-            );
-        } else {
-            // Browser doesn't support Geolocation
-            handleLocationError(false, infoWindow, map.getCenter());
-        }
-    });
-}
 
-function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-    infoWindow.setPosition(pos);
-    infoWindow.setContent(
-      browserHasGeolocation
-        ? "Error: The Geolocation service failed."
-        : "Error: Your browser doesn't support geolocation."
-    );
-    infoWindow.open(map);
-  }
+    function displayRestautant() {
+        db.collection("restaurants")
+            .get()
+            .then(function (snapcollection) {
+                snapcollection.forEach(function (doc) {
+                    console.log(doc.data().geometry);
+                    const loc = doc.data().geometry;
+                    new google.maps.Marker({
+                        position: loc,
+                        map: map,
+                    });
+                })
+            })
+    }
+    displayRestautant();
+};
