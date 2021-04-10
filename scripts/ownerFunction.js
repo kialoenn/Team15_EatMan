@@ -5,6 +5,7 @@ function displayOwner() {
                 .doc(owner.uid)
                 .get()
                 .then(function (doc) {
+                    console.log();
                     var name = doc.data().name;
                     $("#restaurantName").text(name);
                     displayQueue(owner.uid);
@@ -21,8 +22,7 @@ function displayQueue(id) {
         if (owner) {
             db.collection("restaurants")
                 .doc(id)
-                .get()
-                .then(function (doc) {
+                .onSnapshot(function (doc) {
                     console.log(doc.data().queue.length);
                     var queue = doc.data().queue;
                     var t1 = "<ol>";
@@ -53,5 +53,16 @@ function addInHouseQueueListener(id) {
 }
 
 function addRemoveQueueListener(id) {
-
+    var remove = document.getElementById("removeQueue");
+    remove.addEventListener("click", function() {
+        console.log("click");
+        db.collection("restaurants")
+                .doc(id)
+                .update({
+                    queue: firebase.firestore.FieldValue.arrayUnion({name: "guest", id: Date.now()}),
+                })
+                .then(function() {
+                    displayQueue(id);
+                })
+    })
 }

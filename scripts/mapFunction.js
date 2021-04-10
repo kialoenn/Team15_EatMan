@@ -48,6 +48,8 @@ function displayRestautant() {
 
 displayRestautant();
 
+
+
 function addRestaurantListener(id) {
     var detailId = "detail" + id;
     var detail = document.getElementById(detailId);
@@ -80,7 +82,7 @@ function addQueueListener(userName, id) {
     var buttonId = "button" + id;
     var button = document.getElementById(buttonId);
     button.addEventListener("click", function () {
-        var r = confirm("Are you sure?");
+        var r = confirm("It's about time to get in the restaurant!");
         if (r == true) {
             db.collection("restaurants")
             .doc(id)
