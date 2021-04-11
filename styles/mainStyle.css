@@ -63,6 +63,10 @@ body {
 .dropdown-menu {
   filter: drop-shadow(8px 8px 10px gray);
 }
+
+.bodyContent {
+  font-size: 20px;
+}
 /* ul {
         list-style-type: none;
         padding: 0;

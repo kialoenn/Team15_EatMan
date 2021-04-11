@@ -26,6 +26,8 @@ function initMap() {
                         lat: position.coords.latitude,
                         lng: position.coords.longitude,
                     };
+
+                    showDistance(pos);
                     //   infoWindow.setPosition(pos);
                     //   infoWindow.setContent("Location found.");
                     //   infoWindow.open(map);
@@ -66,21 +68,21 @@ function initMap() {
             .then(function (snapcollection) {
                 snapcollection.forEach(function (doc) {
                     var time = doc.data().queue.length * 5;
-                    var contentString = '<div class="content">' +
+                    var contentString = '<div class="infoContent">' +
                         '<div class="siteNotice">' +
                         "</div>" +
-                        '<h1 class="firstHeading">' + doc.data().name + '</h1>' +
+                        '<h5 class="firstHeading">' + doc.data().name + '</h5>' +
                         '<div class="bodyContent">' +
-                        '<p>Wait time: ' + time + " minutes" +
+                        '<p>Wait time: <b>' + time + "</b> minutes" +
                         "</div>" +
                         "</div>";
                     var marker;
                     const infowindow = new google.maps.InfoWindow({
                         content: contentString,
-                        maxWidth: 200,
-                      });
+                        maxWidth: 250,
+                    });
                     if (doc.data().queue.length <= 3) {
-                       
+
                         const loc = doc.data().geometry;
                         marker = new google.maps.Marker({
                             position: loc,
@@ -99,13 +101,48 @@ function initMap() {
                     }
 
                     marker.addListener("click", () => {
+                        console.log("on");
                         infowindow.open(map, marker);
-                      });
+                    });
+
                 })
             })
     }
     mapDisplayRestautant();
 };
+
+function showDistance(pos) {
+    var resList = {};
+    db.collection("restaurants")
+        .get()
+        .then(function (snap) {
+            snap.forEach(function (doc) {
+                var restautantLat = doc.data().geometry.lat;
+                var restautantLng = doc.data().geometry.lng;
+
+                // console.log(restautantLat);
+                // console.log(restautantLng);
+                var radlat1 = Math.PI * pos.lat / 180;
+                var radlat2 = Math.PI * restautantLat  / 180;
+                var theta = pos.lng - restautantLng;
+                var radtheta = Math.PI * theta / 180;
+                var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+                if (dist > 1) {
+                    dist = 1;
+                }
+                dist = Math.acos(dist);
+                dist = dist * 180 / Math.PI;
+                dist = dist * 60 * 1.1515;
+                distInMeters = Math.round(dist * 1.609344 * 10) / 10;
+                console.log(distInMeters);
+                resList.name = doc.data().name;
+                resList.dist = distInMeters;
+                resList.address = doc.data().address;
+                console.log(resList);
+            })
+
+        })
+}
 
 function displayRestautant() {
     db.collection("restaurants")
@@ -126,7 +163,7 @@ function displayRestautant() {
 
 displayRestautant();
 
-function orderRestaurant(option) {
+function orderRestaurantInTime(option) {
     if (option == "least") {
         $("#restaurantsList").html("");
         db.collection("restaurants")

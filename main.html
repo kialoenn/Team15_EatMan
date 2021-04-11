@@ -58,15 +58,31 @@
   <!-- Map -->
   <div id="map"></div>
   <div id="sortContainer">
-    <div class="dropdown">
-      <h3>sort</h3>
+    <h3>sort</h3>
+    <div class="dropdown" id="busyTime">
       <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
         Busy time
       </button>
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-        <li><a class="dropdown-item" onclick="orderRestaurant('least')">Least busy</a></li>
-        <li><a class="dropdown-item" onclick="orderRestaurant('most')">Most busy</a></li>
+        <li><a class="dropdown-item" onclick="orderRestaurantInTime('least')">Least busy</a></li>
+        <li><a class="dropdown-item" onclick="orderRestaurantInTime('most')">Most busy</a></li>
       </ul>
+    </div>
+
+    <div class="dropdown" id="price">
+      <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+        Price
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+        <li><a class="dropdown-item" onclick="orderRestaurantInPrice('cheap')">Low to High</a></li>
+        <li><a class="dropdown-item" onclick="orderRestaurantInPrice('expensive')">High to Low</a></li>
+      </ul>
+    </div>
+
+    <div class="dropdown" id="price">
+      <button class="btn" type="button" aria-expanded="false">
+        Distance
+      </button>
     </div>
 
   </div>
