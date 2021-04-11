@@ -71,14 +71,15 @@ function getUserQueueReady(id) {
                 .get()
                 .then(function (doc) {
                     userName = doc.data().name;
-                    addQueueListener(userName, id)
+                    userId = user.uid;
+                    addQueueListener(userName, id, userId)
                 })
         }
     })
     
 }
 
-function addQueueListener(userName, id) {
+function addQueueListener(userName, id, userId) {
     var buttonId = "button" + id;
     var button = document.getElementById(buttonId);
     button.addEventListener("click", function () {
@@ -88,7 +89,7 @@ function addQueueListener(userName, id) {
             .doc(id)
             .update({
 
-                queue: firebase.firestore.FieldValue.arrayUnion({name : userName, id: Date.now()}),
+                queue: firebase.firestore.FieldValue.arrayUnion({name : userName, id: userId}),
             }).then(function () {
                 console.log("added: " + userName);
             })

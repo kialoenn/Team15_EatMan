@@ -65,12 +65,22 @@ function addRemoveQueueListener(id) {
             var newQueue = old.slice(1);
             db.collection("restaurants")
                 .doc(id)
-                .set({
+                .update({
                     queue: newQueue,
+
                 })
                 .then(function() {
                     displayQueue(id);
                 })
         })
+
+        // db.collection("restaurants")
+        //         .doc(id)
+        //         .update({
+        //             queue: firebase.firestore.FieldValue.delete(),
+        //         })
+        //         .then(function() {
+        //             displayQueue(id);
+        //         })
     })
 }
