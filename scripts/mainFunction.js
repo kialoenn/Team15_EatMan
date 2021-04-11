@@ -138,17 +138,20 @@ function checkReady() {
                 .get()
                 .then(function(doc) {
                     var queueId = doc.data().currentQueue;
-                    console.log(queueId);
-                    db.collection("restaurants")
-                    .doc(queueId)
-                    .get()
-                    .then(function(doc) {
-                        console.log(doc.data().queue[0]);
-                        if (doc.data().queue[0].id == userId) {
-                            console.log("time");
-                            prompt("time to eat!");
-                        }
-                    })
+                    if (queueId != "") {
+                        console.log(queueId);
+                        db.collection("restaurants")
+                        .doc(queueId)
+                        .get()
+                        .then(function(doc) {
+                            console.log(doc.data().queue[0]);
+                            if (doc.data().queue[0].id == userId) {
+                                console.log("time");
+                                prompt("time to eat!");
+                            }
+                        })
+                    }
+                    
                 })
         }
     })
