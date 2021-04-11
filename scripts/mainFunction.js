@@ -73,6 +73,7 @@ function getUserQueueReady(id) {
                     userName = doc.data().name;
                     userId = user.uid;
                     addQueueListener(userName, id, userId);
+                    //addReadyListener(userId);
                 })
         }
     })
@@ -91,9 +92,16 @@ function addQueueListener(userName, id, userId) {
 
                 queue: firebase.firestore.FieldValue.arrayUnion({name : userName, id: userId}),
             }).then(function () {
-                console.log("added: " + userName);
-                var restaurantId = id;
-                addReadyListener(userId, restaurantId);
+                restaurantId = id;
+                firebase.auth().onAuthStateChanged(function (user) {
+                    if (user) {
+                        db.collection("users")
+                        .doc(user.uid)
+                        .update({
+                            currentQueue : restaurantId
+                        })
+                    }
+                })
             })
         }
         
@@ -101,13 +109,49 @@ function addQueueListener(userName, id, userId) {
     })
 }
 
-function addReadyListener(userId, restaurantId) {
-    db.collection("restaurants")
-    .doc(restaurantId)
-    .onSnapshot(function(doc) {
-        if (doc.data().queue[0].id == userId) {
-            console.log("time up");
-            prompt("It's time to go inside!");
+// function addReadyListener(userId) {
+//     db.collection("users")
+//     .doc(userId)
+//     .get()
+//     .then(function(doc) {
+//         var queueId = doc.data().currentQueue;
+//         console.log(queueId);
+//         db.collection("restaurants")
+//         .doc(queueId)
+//         .get()
+//         .then(function(doc) {
+//             console.log(doc.data().queue[0]);
+//             if (doc.data().queue[0].id == userId) {
+//                 console.log("time");
+//                 prompt("time to eat!");
+//             }
+//         })
+//     })
+
+// }
+
+function checkReady() {
+    firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+            db.collection("users")
+                .doc(user.uid)
+                .get()
+                .then(function(doc) {
+                    var queueId = doc.data().currentQueue;
+                    console.log(queueId);
+                    db.collection("restaurants")
+                    .doc(queueId)
+                    .get()
+                    .then(function(doc) {
+                        console.log(doc.data().queue[0]);
+                        if (doc.data().queue[0].id == userId) {
+                            console.log("time");
+                            prompt("time to eat!");
+                        }
+                    })
+                })
         }
     })
 }
+
+checkReady();
