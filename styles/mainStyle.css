@@ -1,54 +1,69 @@
 /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
-       #map {
-        height: 50%;
-      }
-      
-      /* Optional: Makes the sample page fill the window. */
-      html,
-      body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
+#map {
+  height: 50%;
+}
 
-      .custom-map-control-button {
-        appearance: button;
-        background-color: #fff;
-        border: 0;
-        border-radius: 2px;
-        box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
-        cursor: pointer;
-        margin: 10px;
-        padding: 0 0.5em;
-        height: 40px;
-        font: 400 18px Roboto, Arial, sans-serif;
-        overflow: hidden;
-      }
-      .custom-map-control-button:hover {
-        background: #ebebeb;
-      }
+/* Optional: Makes the sample page fill the window. */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 
-      
-      #map {
-          grid-area: 'map';
-        height: 50%;
-      }
-      
-      #restaurantsList > div{
-        border: 5px solid black;
-        margin-bottom: 15px;
-      }
+.custom-map-control-button {
+  appearance: button;
+  background-color: #fff;
+  border: 0;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  margin: 10px;
+  padding: 0 0.5em;
+  height: 40px;
+  font: 400 18px Roboto, Arial, sans-serif;
+  overflow: hidden;
+}
 
-      .hide {
-        display: none;
-      }
-      .active {
-        display: block;
-    }
+.custom-map-control-button:hover {
+  background: #ebebeb;
+}
 
 
-      /* ul {
+#map {
+  grid-area: 'map';
+  height: 50%;
+}
+
+#restaurantsList>div {
+  border: 5px solid black;
+  margin-bottom: 15px;
+}
+
+.hide {
+  display: none;
+}
+
+.active {
+  display: block;
+}
+
+.btn {
+  color: #444;
+  border: .06em solid transparent;
+  border-radius: 1em;
+  background-color: #BDE0FE;
+}
+
+.btn:hover {
+  filter: opacity(70%);
+}
+
+.dropdown-menu {
+  filter: drop-shadow(8px 8px 10px gray);
+}
+/* ul {
         list-style-type: none;
         padding: 0;
         margin: 0;

@@ -44,6 +44,7 @@ function addInHouseQueueListener(id) {
                 .doc(id)
                 .update({
                     queue: firebase.firestore.FieldValue.arrayUnion({name: "guest", id: Date.now()}),
+                    queueCount: firebase.firestore.FieldValue.increment(1)
                 })
                 .then(function() {
                     displayQueue(id);
@@ -63,15 +64,21 @@ function addRemoveQueueListener(id) {
             
             old = doc.data().queue;
             var newQueue = old.slice(1);
-            db.collection("restaurants")
+            var count = doc.data().queueCount;
+            if (count > 0) {
+                db.collection("restaurants")
                 .doc(id)
                 .update({
                     queue: newQueue,
-
+                    queueCount: firebase.firestore.FieldValue.increment(-1)
                 })
                 .then(function() {
                     displayQueue(id);
                 })
+            }
+
+
+
         })
 
         // db.collection("restaurants")
