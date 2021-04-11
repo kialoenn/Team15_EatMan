@@ -26,7 +26,7 @@ function initMap() {
                         lat: position.coords.latitude,
                         lng: position.coords.longitude,
                     };
-
+                    
                     showDistance(pos);
                     //   infoWindow.setPosition(pos);
                     //   infoWindow.setContent("Location found.");
@@ -111,6 +111,14 @@ function initMap() {
     mapDisplayRestautant();
 };
 
+
+function changeDisplay(resList) {
+    $("#queue-menu").html('<li><a class="dropdown-item" id = "clickLeast">Least busy</a></li><li><a class="dropdown-item" id = "clickMost">Most busy</a></li>')
+    $("#clickLeast").on("click", function(resList){
+        $("#restaurantsList").html("");
+
+    })
+}
 function showDistance(pos) {
     var resList = {};
     db.collection("restaurants")
@@ -140,7 +148,7 @@ function showDistance(pos) {
                 resList.address = doc.data().address;
                 console.log(resList);
             })
-
+            changeDisplay(resList);
         })
 }
 
@@ -149,19 +157,49 @@ function displayRestautant() {
         .get()
         .then(function (snap) {
             snap.forEach(function (doc) {
+                var image = doc.data().icon;
                 var name = doc.data().name;
+                var cusineHtml = "<span>";
+                doc.data().cuisine.forEach(function(type) {
+                    cusineHtml += "<span>&#8226" + type + "</span>";
+                })
+                var price = "";
+                for (i = 0; i < doc.data().price; i++) {
+                    price +="$";
+                }
                 var queue = doc.data().queue.length * 5;
+                var day = new Date();
+                var hour = day.getHours();
+                console.log(doc.data().hours.start);
+                var hourStatus = "";
+                var queueReady = true;
+                if (hour >= doc.data().hours.start && hour < doc.data().hours.end) {
+                    hourStatus += 'class="text-success">Open' + '</h6><div class="d-flex flex-column mt-4">' + '<button id="' + doc.id + '" class="btn btn-primary btn-sm" type="button">Detail</button> <br>' +
+                    '<button class="btn btn-primary btn-lg" type="button" id = "button' + doc.id + '">Queue UP</button></div></div></div></div></div></div>';
+                    queueReady = true;
+                } else {
+                    hourStatus += 'class="text-danger">Close' + '</h6><div class="d-flex flex-column mt-4"><button id="' + doc.id + '" class="btn btn-primary btn-sm" type="button">Detail</button></div></div></div></div></div></div>';
+                    queueReady = false;
+                }
                 var address = doc.data().address;
                 var phone = doc.data().phone;
-                $("#restaurantsList").append("<div id='" + doc.id + "'>" + "<p>" + name + "</p>" + "<p>Estimated time: " + queue + "minutes</p>" +
-                    "<button id='button" + doc.id + "'> Queue Up</button>" + "<div class = 'hide' id = 'detail" + doc.id + "'><p>Address: " + address + "</p>" + "<p>phone: " + phone + "</p></div></div>");
+                $("#restaurantsList").append('<div class="container mt-5 mb-5"><div class="d-flex justify-content-center row"><div class="col-md-10">' +
+                        '<div class="row p-2 bg-white border rounded"><div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded" src="./images/'
+                        + image + '"></div><div class="col-md-6 mt-1"><h3>' + name + '</h3><div class="stars-outer"><div class="stars-inner"></div></div>' +
+                                '<div class="mt-1 mb-1 spec-1">' + cusineHtml +'</span></div><div class="mt-1 mb-1 spec-1">' + price + '</div></div><div class="align-items-center align-content-center col-md-3 border-left mt-1"><div class="d-flex flex-row align-items-center">'
+                                 +'<h4 class="mr-1">' + queue +' Minutes &#128337</h4></div><h6' +hourStatus);
                 addRestaurantListener(doc.id);
-                getUserQueueReady(doc.id);
+                if (queueReady) {
+                    getUserQueueReady(doc.id);
+                }
+                
             })
         })
 }
 
 displayRestautant();
+
+
 
 function orderRestaurantInTime(option) {
     if (option == "least") {
@@ -202,13 +240,9 @@ function orderRestaurantInTime(option) {
 }
 
 function addRestaurantListener(id) {
-    var detailId = "detail" + id;
-    var detail = document.getElementById(detailId);
     var restaurant = document.getElementById(id);
     restaurant.addEventListener("click", function () {
-        console.log("clicked");
-        console.log(detailId);
-        detail.classList.toggle('active');
+        window.location.href = "details.html?id=" + id;
     })
 }
 
