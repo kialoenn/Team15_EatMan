@@ -72,7 +72,7 @@ function getUserQueueReady(id) {
                 .then(function (doc) {
                     userName = doc.data().name;
                     userId = user.uid;
-                    addQueueListener(userName, id, userId)
+                    addQueueListener(userName, id, userId);
                 })
         }
     })
@@ -92,9 +92,22 @@ function addQueueListener(userName, id, userId) {
                 queue: firebase.firestore.FieldValue.arrayUnion({name : userName, id: userId}),
             }).then(function () {
                 console.log("added: " + userName);
+                var restaurantId = id;
+                addReadyListener(userId, restaurantId);
             })
         }
         
 
+    })
+}
+
+function addReadyListener(userId, restaurantId) {
+    db.collection("restaurants")
+    .doc(restaurantId)
+    .onSnapshot(function(doc) {
+        if (doc.data().queue[0].id == userId) {
+            console.log("time up");
+            prompt("It's time to go inside!");
+        }
     })
 }
