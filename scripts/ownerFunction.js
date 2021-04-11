@@ -23,7 +23,6 @@ function displayQueue(id) {
             db.collection("restaurants")
                 .doc(id)
                 .onSnapshot(function (doc) {
-                    console.log(doc.data().queue.length);
                     var queue = doc.data().queue;
                     var t1 = "<ol>";
                     queue.forEach(function (guest) {
@@ -56,13 +55,22 @@ function addRemoveQueueListener(id) {
     var remove = document.getElementById("removeQueue");
     remove.addEventListener("click", function() {
         console.log("click");
+        var old;
         db.collection("restaurants")
+        .doc(id)
+        .get()
+        .then(function(doc) {
+            
+            old = doc.data().queue;
+            var newQueue = old.slice(1);
+            db.collection("restaurants")
                 .doc(id)
-                .update({
-                    queue: firebase.firestore.FieldValue.arrayUnion({name: "guest", id: Date.now()}),
+                .set({
+                    queue: newQueue,
                 })
                 .then(function() {
                     displayQueue(id);
                 })
+        })
     })
 }
