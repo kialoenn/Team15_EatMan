@@ -142,14 +142,21 @@ function checkReady() {
                         console.log(queueId);
                         db.collection("restaurants")
                         .doc(queueId)
-                        .get()
-                        .then(function(doc) {
+                        .onSnapshot(function(doc) {
                             console.log(doc.data().queue[0]);
                             if (doc.data().queue[0].id == userId) {
                                 console.log("time");
                                 prompt("time to eat!");
                             }
                         })
+                        // .get()
+                        // .then(function(doc) {
+                        //     console.log(doc.data().queue[0]);
+                        //     if (doc.data().queue[0].id == userId) {
+                        //         console.log("time");
+                        //         prompt("time to eat!");
+                        //     }
+                        // })
                     }
                     
                 })
