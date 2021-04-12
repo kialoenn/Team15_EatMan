@@ -156,6 +156,7 @@ function changeDisplay(resList) {
     })
 }
 
+/** Restaurants display after get geo location */
 function changeDefaultDisplay(resList) {
     $("#restaurantsList").html("");
     resList.forEach(function (doc) {
@@ -176,19 +177,28 @@ function changeDefaultDisplay(resList) {
         var hour = day.getHours();
         var hourStatus = "";
         var queueReady = true;
+        var queueStatus = "";
         if (hour >= doc.hours.start && hour < doc.hours.end) {
-            hourStatus += '"text-success">Open' + '</h6><div class="d-flex flex-column mt-4">' + '<button id="' + doc.id + '" class="btn btn-primary btn-sm" type="button">Detail</button> <br>' +
+            if (queue == 0) {
+                hourStatus += '"text-success">Open' + '</h6><div class="d-flex flex-column mt-4">' + '<button id="' + doc.id + '" class="btn btn-primary btn-sm" type="button">Detail</button> <br>' +
+                    '</div></div></div></div></div></div>';
+                queueReady = false;
+            } else {
+                hourStatus += '"text-success">Open' + '</h6><div class="d-flex flex-column mt-4">' + '<button id="' + doc.id + '" class="btn btn-primary btn-sm" type="button">Detail</button> <br>' +
                 '<button class="btn btn-primary btn-lg" type="button" id = "button' + doc.id + '">Queue UP</button></div></div></div></div></div></div>';
             queueReady = true;
+            }
+            queueStatus = queue + " Minutes &#128337";
         } else {
             hourStatus += '"text-danger">Close' + '</h6><div class="d-flex flex-column mt-4"><button id="' + doc.id + '" class="btn btn-primary btn-sm" type="button">Detail</button></div></div></div></div></div></div>';
             queueReady = false;
+            queueStatus = "";
         }
         $("#restaurantsList").append('<div class="container mt-5 mb-5"><div class="d-flex justify-content-center row"><div class="col-md-15">' +
             '<div class="row p-2 bg-white border rounded"><div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded" src="./images/' +
             image + '"></div><div class="col-md-6 mt-1"><h3>' + name + ' <span class="distance"> ' + dist + ' km</span></h3><div class="stars-outer"><div class="stars-inner"></div></div>' +
             '<div class="mt-1 mb-1 spec-1">' + cusineHtml + '</span></div><div class="mt-1 mb-1 spec-1">' + price + '</div></div><div class="align-items-center align-content-center col-md-3 border-left mt-1"><div class="d-flex flex-row align-items-center">' +
-            '<h4 class="mr-1">' + queue + ' Minutes &#128337</h4></div><h6  class=' + hourStatus);
+            '<h4 class="mr-1">' + queueStatus + '</h4></div><h6  class=' + hourStatus);
         addRestaurantListener(doc.id);
         if (queueReady) {
             getUserQueueReady(doc.id);
@@ -238,6 +248,7 @@ function showDistance(pos) {
         })
 }
 
+/** Default restaurants display */
 function displayRestautant() {
     db.collection("restaurants")
         .get()
@@ -259,13 +270,22 @@ function displayRestautant() {
                 console.log(doc.data().hours.start);
                 var hourStatus = "";
                 var queueReady = true;
+                var queueStatus = "";
                 if (hour >= doc.data().hours.start && hour < doc.data().hours.end) {
-                    hourStatus += '"text-success">Open' + '</h6><div class="d-flex flex-column mt-4">' + '<button id="' + doc.id + '" class="btn btn-primary btn-sm" type="button">Detail</button> <br>' +
+                    if (queue == 0) {
+                        hourStatus += '"text-success">Open' + '</h6><div class="d-flex flex-column mt-4">' + '<button id="' + doc.id + '" class="btn btn-primary btn-sm" type="button">Detail</button> <br>' +
+                            '</div></div></div></div></div></div>';
+                        queueReady = false;
+                    } else {
+                        hourStatus += '"text-success">Open' + '</h6><div class="d-flex flex-column mt-4">' + '<button id="' + doc.id + '" class="btn btn-primary btn-sm" type="button">Detail</button> <br>' +
                         '<button class="btn btn-primary btn-lg" type="button" id = "button' + doc.id + '">Queue UP</button></div></div></div></div></div></div>';
                     queueReady = true;
+                    }
+                    queueStatus = queue + " Minutes &#128337";
                 } else {
                     hourStatus += '"text-danger">Close' + '</h6><div class="d-flex flex-column mt-4"><button id="' + doc.id + '" class="btn btn-primary btn-sm" type="button">Detail</button></div></div></div></div></div></div>';
                     queueReady = false;
+                    queueStatus = "";
                 }
                 var address = doc.data().address;
                 var phone = doc.data().phone;
@@ -273,7 +293,7 @@ function displayRestautant() {
                     '<div class="row p-2 bg-white border rounded"><div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded" src="./images/' +
                     image + '"></div><div class="col-md-6 mt-1"><h3>' + name + '</h3><div class="stars-outer"><div class="stars-inner"></div></div>' +
                     '<div class="mt-1 mb-1 spec-1">' + cusineHtml + '</span></div><div class="mt-1 mb-1 spec-1">' + price + '</div></div><div class="align-items-center align-content-center col-md-3 border-left mt-1"><div class="d-flex flex-row align-items-center">' +
-                    '<h4 class="mr-1">' + queue + ' Minutes &#128337</h4></div><h6 class=' + hourStatus);
+                    '<h4 class="mr-1">' + queueStatus + '</h4></div><h6 class=' + hourStatus);
 
                 addRestaurantListener(doc.id);
                 if (queueReady) {
@@ -307,23 +327,23 @@ displayRestautant();
 
 function pagination() {
     var items = $("#restaurantsList .container");
-                var numItems = items.length;
-                console.log(numItems);
-                var perPage = 2;
+    var numItems = items.length;
+    console.log(numItems);
+    var perPage = 2;
 
-                items.slice(perPage).hide();
+    items.slice(perPage).hide();
 
-                $('#pagination-container').pagination({
-                    items: numItems,
-                    itemsOnPage: perPage,
-                    prevText: "&laquo;",
-                    nextText: "&raquo;",
-                    onPageClick: function (pageNumber) {
-                        var showFrom = perPage * (pageNumber - 1);
-                        var showTo = showFrom + perPage;
-                        items.hide().slice(showFrom, showTo).show();
-                    }
-                });
+    $('#pagination-container').pagination({
+        items: numItems,
+        itemsOnPage: perPage,
+        prevText: "&laquo;",
+        nextText: "&raquo;",
+        onPageClick: function (pageNumber) {
+            var showFrom = perPage * (pageNumber - 1);
+            var showTo = showFrom + perPage;
+            items.hide().slice(showFrom, showTo).show();
+        }
+    });
 }
 
 function orderRestaurantInTime(option) {
@@ -350,13 +370,22 @@ function orderRestaurantInTime(option) {
                     console.log(doc.data().hours.start);
                     var hourStatus = "";
                     var queueReady = true;
+                    var queueStatus = "";
                     if (hour >= doc.data().hours.start && hour < doc.data().hours.end) {
-                        hourStatus += 'class="text-success">Open' + '</h6><div class="d-flex flex-column mt-4">' + '<button id="' + doc.id + '" class="btn btn-primary btn-sm" type="button">Detail</button> <br>' +
+                        if (queue == 0) {
+                            hourStatus += '"text-success">Open' + '</h6><div class="d-flex flex-column mt-4">' + '<button id="' + doc.id + '" class="btn btn-primary btn-sm" type="button">Detail</button> <br>' +
+                                '</div></div></div></div></div></div>';
+                            queueReady = false;
+                        } else {
+                            hourStatus += '"text-success">Open' + '</h6><div class="d-flex flex-column mt-4">' + '<button id="' + doc.id + '" class="btn btn-primary btn-sm" type="button">Detail</button> <br>' +
                             '<button class="btn btn-primary btn-lg" type="button" id = "button' + doc.id + '">Queue UP</button></div></div></div></div></div></div>';
                         queueReady = true;
+                        }
+                        queueStatus = queue + " Minutes &#128337";
                     } else {
-                        hourStatus += 'class="text-danger">Close' + '</h6><div class="d-flex flex-column mt-4"><button id="' + doc.id + '" class="btn btn-primary btn-sm" type="button">Detail</button></div></div></div></div></div></div>';
+                        hourStatus += '"text-danger">Close' + '</h6><div class="d-flex flex-column mt-4"><button id="' + doc.id + '" class="btn btn-primary btn-sm" type="button">Detail</button></div></div></div></div></div></div>';
                         queueReady = false;
+                        queueStatus = "";
                     }
                     var address = doc.data().address;
                     var phone = doc.data().phone;
@@ -364,7 +393,7 @@ function orderRestaurantInTime(option) {
                         '<div class="row p-2 bg-white border rounded"><div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded" src="./images/' +
                         image + '"></div><div class="col-md-6 mt-1"><h3>' + name + '</h3><div class="stars-outer"><div class="stars-inner"></div></div>' +
                         '<div class="mt-1 mb-1 spec-1">' + cusineHtml + '</span></div><div class="mt-1 mb-1 spec-1">' + price + '</div></div><div class="align-items-center align-content-center col-md-3 border-left mt-1"><div class="d-flex flex-row align-items-center">' +
-                        '<h4 class="mr-1">' + queue + ' Minutes &#128337</h4></div><h6' + hourStatus);
+                        '<h4 class="mr-1">' + queueStatus + '</h4></div><h6 class=' + hourStatus);
                     addRestaurantListener(doc.id);
                     if (queueReady) {
                         getUserQueueReady(doc.id);
@@ -396,11 +425,17 @@ function orderRestaurantInTime(option) {
                     var hourStatus = "";
                     var queueReady = true;
                     if (hour >= doc.data().hours.start && hour < doc.data().hours.end) {
-                        hourStatus += 'class="text-success">Open' + '</h6><div class="d-flex flex-column mt-4">' + '<button id="' + doc.id + '" class="btn btn-primary btn-sm" type="button">Detail</button> <br>' +
+                        if (queue == 0) {
+                            hourStatus += '"text-success">Open' + '</h6><div class="d-flex flex-column mt-4">' + '<button id="' + doc.id + '" class="btn btn-primary btn-sm" type="button">Detail</button> <br>' +
+                                '</div></div></div></div></div></div>';
+                            queueReady = false;
+                        } else {
+                            hourStatus += '"text-success">Open' + '</h6><div class="d-flex flex-column mt-4">' + '<button id="' + doc.id + '" class="btn btn-primary btn-sm" type="button">Detail</button> <br>' +
                             '<button class="btn btn-primary btn-lg" type="button" id = "button' + doc.id + '">Queue UP</button></div></div></div></div></div></div>';
                         queueReady = true;
+                        }
                     } else {
-                        hourStatus += 'class="text-danger">Close' + '</h6><div class="d-flex flex-column mt-4"><button id="' + doc.id + '" class="btn btn-primary btn-sm" type="button">Detail</button></div></div></div></div></div></div>';
+                        hourStatus += '"text-danger">Close' + '</h6><div class="d-flex flex-column mt-4"><button id="' + doc.id + '" class="btn btn-primary btn-sm" type="button">Detail</button></div></div></div></div></div></div>';
                         queueReady = false;
                     }
                     var address = doc.data().address;
@@ -409,7 +444,7 @@ function orderRestaurantInTime(option) {
                         '<div class="row p-2 bg-white border rounded"><div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded" src="./images/' +
                         image + '"></div><div class="col-md-6 mt-1"><h3>' + name + '</h3><div class="stars-outer"><div class="stars-inner"></div></div>' +
                         '<div class="mt-1 mb-1 spec-1">' + cusineHtml + '</span></div><div class="mt-1 mb-1 spec-1">' + price + '</div></div><div class="align-items-center align-content-center col-md-3 border-left mt-1"><div class="d-flex flex-row align-items-center">' +
-                        '<h4 class="mr-1">' + queue + ' Minutes &#128337</h4></div><h6' + hourStatus);
+                        '<h4 class="mr-1">' + queue + ' Minutes &#128337</h4></div><h6 class=' + hourStatus);
                     addRestaurantListener(doc.id);
                     if (queueReady) {
                         getUserQueueReady(doc.id);
@@ -445,11 +480,17 @@ function orderRestaurantInPrice(option) {
                     var hourStatus = "";
                     var queueReady = true;
                     if (hour >= doc.data().hours.start && hour < doc.data().hours.end) {
-                        hourStatus += 'class="text-success">Open' + '</h6><div class="d-flex flex-column mt-4">' + '<button id="' + doc.id + '" class="btn btn-primary btn-sm" type="button">Detail</button> <br>' +
+                        if (queue == 0) {
+                            hourStatus += '"text-success">Open' + '</h6><div class="d-flex flex-column mt-4">' + '<button id="' + doc.id + '" class="btn btn-primary btn-sm" type="button">Detail</button> <br>' +
+                                '</div></div></div></div></div></div>';
+                            queueReady = false;
+                        } else {
+                            hourStatus += '"text-success">Open' + '</h6><div class="d-flex flex-column mt-4">' + '<button id="' + doc.id + '" class="btn btn-primary btn-sm" type="button">Detail</button> <br>' +
                             '<button class="btn btn-primary btn-lg" type="button" id = "button' + doc.id + '">Queue UP</button></div></div></div></div></div></div>';
                         queueReady = true;
+                        }
                     } else {
-                        hourStatus += 'class="text-danger">Close' + '</h6><div class="d-flex flex-column mt-4"><button id="' + doc.id + '" class="btn btn-primary btn-sm" type="button">Detail</button></div></div></div></div></div></div>';
+                        hourStatus += '"text-danger">Close' + '</h6><div class="d-flex flex-column mt-4"><button id="' + doc.id + '" class="btn btn-primary btn-sm" type="button">Detail</button></div></div></div></div></div></div>';
                         queueReady = false;
                     }
                     var address = doc.data().address;
@@ -458,7 +499,7 @@ function orderRestaurantInPrice(option) {
                         '<div class="row p-2 bg-white border rounded"><div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded" src="./images/' +
                         image + '"></div><div class="col-md-6 mt-1"><h3>' + name + '</h3><div class="stars-outer"><div class="stars-inner"></div></div>' +
                         '<div class="mt-1 mb-1 spec-1">' + cusineHtml + '</span></div><div class="mt-1 mb-1 spec-1">' + price + '</div></div><div class="align-items-center align-content-center col-md-3 border-left mt-1"><div class="d-flex flex-row align-items-center">' +
-                        '<h4 class="mr-1">' + queue + ' Minutes &#128337</h4></div><h6' + hourStatus);
+                        '<h4 class="mr-1">' + queue + ' Minutes &#128337</h4></div><h6 class=' + hourStatus);
                     addRestaurantListener(doc.id);
                     if (queueReady) {
                         getUserQueueReady(doc.id);
@@ -490,11 +531,17 @@ function orderRestaurantInPrice(option) {
                     var hourStatus = "";
                     var queueReady = true;
                     if (hour >= doc.data().hours.start && hour < doc.data().hours.end) {
-                        hourStatus += 'class="text-success">Open' + '</h6><div class="d-flex flex-column mt-4">' + '<button id="' + doc.id + '" class="btn btn-primary btn-sm" type="button">Detail</button> <br>' +
+                        if (queue == 0) {
+                            hourStatus += '"text-success">Open' + '</h6><div class="d-flex flex-column mt-4">' + '<button id="' + doc.id + '" class="btn btn-primary btn-sm" type="button">Detail</button> <br>' +
+                                '</div></div></div></div></div></div>';
+                            queueReady = false;
+                        } else {
+                            hourStatus += '"text-success">Open' + '</h6><div class="d-flex flex-column mt-4">' + '<button id="' + doc.id + '" class="btn btn-primary btn-sm" type="button">Detail</button> <br>' +
                             '<button class="btn btn-primary btn-lg" type="button" id = "button' + doc.id + '">Queue UP</button></div></div></div></div></div></div>';
                         queueReady = true;
+                        }
                     } else {
-                        hourStatus += 'class="text-danger">Close' + '</h6><div class="d-flex flex-column mt-4"><button id="' + doc.id + '" class="btn btn-primary btn-sm" type="button">Detail</button></div></div></div></div></div></div>';
+                        hourStatus += '"text-danger">Close' + '</h6><div class="d-flex flex-column mt-4"><button id="' + doc.id + '" class="btn btn-primary btn-sm" type="button">Detail</button></div></div></div></div></div></div>';
                         queueReady = false;
                     }
                     var address = doc.data().address;
@@ -503,7 +550,7 @@ function orderRestaurantInPrice(option) {
                         '<div class="row p-2 bg-white border rounded"><div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded" src="./images/' +
                         image + '"></div><div class="col-md-6 mt-1"><h3>' + name + '</h3><div class="stars-outer"><div class="stars-inner"></div></div>' +
                         '<div class="mt-1 mb-1 spec-1">' + cusineHtml + '</span></div><div class="mt-1 mb-1 spec-1">' + price + '</div></div><div class="align-items-center align-content-center col-md-3 border-left mt-1"><div class="d-flex flex-row align-items-center">' +
-                        '<h4 class="mr-1">' + queue + ' Minutes &#128337</h4></div><h6' + hourStatus);
+                        '<h4 class="mr-1">' + queue + ' Minutes &#128337</h4></div><h6 class=' + hourStatus);
                     addRestaurantListener(doc.id);
                     if (queueReady) {
                         getUserQueueReady(doc.id);
@@ -544,29 +591,48 @@ function addQueueListener(userName, id, userId) {
     var buttonId = "button" + id;
     var button = document.getElementById(buttonId);
     button.addEventListener("click", function () {
-        var r = confirm("Are you sure");
-        if (r == true) {
-            db.collection("restaurants")
-                .doc(id)
-                .update({
+        Swal.fire({
+            title: 'Select Party Size',
+            input: 'select',
+            inputOptions: {
+                "1": "1",
+                "2": "2",
+                "3": "3",
+                "4": "4",
+                "5": "5",
+                "6+": "6+",
+            },
+            inputPlaceholder: 'Select a number',
+            showCancelButton: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire('Queue UP!', 'You are now in the queue.', 'success');
+                db.collection("restaurants")
+                    .doc(id)
+                    .update({
 
-                    queue: firebase.firestore.FieldValue.arrayUnion({
-                        name: userName,
-                        id: userId
-                    }),
-                }).then(function () {
-                    restaurantId = id;
-                    firebase.auth().onAuthStateChanged(function (user) {
-                        if (user) {
-                            db.collection("users")
-                                .doc(user.uid)
-                                .update({
-                                    currentQueue: restaurantId
-                                })
-                        }
+                        queue: firebase.firestore.FieldValue.arrayUnion({
+                            name: userName,
+                            id: userId,
+                            size: result.value,
+                        }),
+                        queueCount: firebase.firestore.FieldValue.increment(1),
+
+                    }).then(function () {
+                        restaurantId = id;
+                        firebase.auth().onAuthStateChanged(function (user) {
+                            if (user) {
+                                db.collection("users")
+                                    .doc(user.uid)
+                                    .update({
+                                        currentQueue: restaurantId
+                                    })
+                            }
+                        })
                     })
-                })
-        }
+            }
+
+        })
 
 
     })
@@ -606,7 +672,8 @@ function checkReady() {
                         db.collection("restaurants")
                             .doc(queueId)
                             .onSnapshot(function (doc) {
-                                if (doc & doc.data().queue) {
+
+                                if (doc.data().queue[0]) {
                                     console.log(doc.data().queue[0]);
                                     if (doc.data().queue[0].id == userId) {
                                         console.log("time");
