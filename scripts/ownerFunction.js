@@ -85,14 +85,5 @@ function addRemoveQueueListener(id) {
 
 
         })
-
-        // db.collection("restaurants")
-        //         .doc(id)
-        //         .update({
-        //             queue: firebase.firestore.FieldValue.delete(),
-        //         })
-        //         .then(function() {
-        //             displayQueue(id);
-        //         })
     })
 }
