@@ -197,11 +197,21 @@ function changeDefaultDisplay(resList) {
             queueReady = false;
             queueStatus = "";
         }
+        var address = doc.address;
+        var phone = doc.phone;
+        var partName = name.slice(0, 3);
+        var star = '</h3><div class="stars-outer ' + partName + '"><div class="stars-inner"></div></div>';
         $("#restaurantsList").append('<div class="container mt-5 mb-5"><div class="d-flex justify-content-center row"><div class="col-md-15">' +
             '<div class="row p-2 bg-white border rounded"><div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded" src="./images/' +
-            image + '"></div><div class="col-md-6 mt-1"><h3>' + name + ' <span class="distance"> ' + dist + ' km</span></h3><div class="stars-outer"><div class="stars-inner"></div></div>' +
-            '<div class="mt-1 mb-1 spec-1">' + cusineHtml + '</span></div><div class="mt-1 mb-1 spec-1">' + price + '</div></div><div class="align-items-center align-content-center col-md-3 border-left mt-1"><div class="d-flex flex-row align-items-center">' +
+            image + '"></div><div class="col-md-6 mt-1"><h3>' + name + ' <span class="distance"> ' + dist + ' km</span>' + star +
+            '<div class="mt-1 mb-1 spec-1">' + cusineHtml + '</span></div><div class="mt-1 mb-1 spec-1">' + price + '<div class="mt-1 mb-1 spec-1">' + address + '</div>' + '<div class="mt-1 mb-1 spec-1">' + phone + '</div>'
+            + '</div></div><div class="align-items-center align-content-center col-md-3 border-left mt-1"><div class="d-flex flex-row align-items-center">' +
             '<h4 class="mr-1">' + queueStatus + '</h4></div><h6  class=' + hourStatus);
+            var starTotal = 5;
+            var rating = doc.rating;
+            const starPercentage = (rating / starTotal) * 100;
+            const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
+            document.querySelector(`.${partName} .stars-inner`).style.width = starPercentageRounded;
         addRestaurantListener(doc.id);
         if (queueReady) {
             getUserQueueReady(doc.id);
@@ -244,6 +254,9 @@ function showDistance(pos) {
                 resList.cuisine = doc.data().cuisine;
                 resList.image = doc.data().icon;
                 resList.price = doc.data().price;
+                resList.address = doc.data().address;
+                resList.phone = doc.data().phone;
+                resList.rating = doc.data().rating;
                 totalList.push(resList);
                 console.log(totalList);
             })
@@ -292,11 +305,21 @@ function displayRestautant() {
                 }
                 var address = doc.data().address;
                 var phone = doc.data().phone;
+                var partName = name.slice(0, 3);
+                var star = '</h3><div class="stars-outer ' + partName + '"><div class="stars-inner"></div></div>';
+                console.log(star);
                 $("#restaurantsList").append('<div class="container mt-5 mb-5"><div class="d-flex justify-content-center row"><div class="col-md-15">' +
                     '<div class="row p-2 bg-white border rounded"><div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded" src="./images/' +
-                    image + '"></div><div class="col-md-6 mt-1"><h3>' + name + '</h3><div class="stars-outer"><div class="stars-inner"></div></div>' +
-                    '<div class="mt-1 mb-1 spec-1">' + cusineHtml + '</span></div><div class="mt-1 mb-1 spec-1">' + price + '</div></div><div class="align-items-center align-content-center col-md-3 border-left mt-1"><div class="d-flex flex-row align-items-center">' +
-                    '<h4 class="mr-1">' + queueStatus + '</h4></div><h6 class=' + hourStatus);
+                    image + '"></div><div class="col-md-6 mt-1"><h3>' + name + star +
+                    '<div class="mt-1 mb-1 spec-1">' + cusineHtml + '</span></div><div class="mt-1 mb-1 spec-1">' + price + '</div>' +
+                    '<div class="mt-1 mb-1 spec-1">' + address + '</div>' + '<div class="mt-1 mb-1 spec-1">' + phone + '</div>' + '</div><div class="align-items-center align-content-center col-md-3 border-left mt-1"><div class="d-flex flex-row align-items-center">' +
+                    '<h4 class="mr-1">' + queueStatus + '</h4></h4></div><h6 class=' + hourStatus);
+
+                var starTotal = 5;
+                var rating = doc.data().rating;
+                const starPercentage = (rating / starTotal) * 100;
+                const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
+                document.querySelector(`.${partName} .stars-inner`).style.width = starPercentageRounded;
 
                 addRestaurantListener(doc.id);
                 if (queueReady) {
@@ -374,11 +397,21 @@ function orderRestaurantInTime(option) {
                     }
                     var address = doc.data().address;
                     var phone = doc.data().phone;
+                    var partName = name.slice(0, 3);
+                    var star = '</h3><div class="stars-outer ' + partName + '"><div class="stars-inner"></div></div>';
+                    console.log(star);
                     $("#restaurantsList").append('<div class="container mt-5 mb-5"><div class="d-flex justify-content-center row"><div class="col-md-15">' +
                         '<div class="row p-2 bg-white border rounded"><div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded" src="./images/' +
-                        image + '"></div><div class="col-md-6 mt-1"><h3>' + name + '</h3><div class="stars-outer"><div class="stars-inner"></div></div>' +
-                        '<div class="mt-1 mb-1 spec-1">' + cusineHtml + '</span></div><div class="mt-1 mb-1 spec-1">' + price + '</div></div><div class="align-items-center align-content-center col-md-3 border-left mt-1"><div class="d-flex flex-row align-items-center">' +
-                        '<h4 class="mr-1">' + queueStatus + '</h4></div><h6 class=' + hourStatus);
+                        image + '"></div><div class="col-md-6 mt-1"><h3>' + name + star +
+                        '<div class="mt-1 mb-1 spec-1">' + cusineHtml + '</span></div><div class="mt-1 mb-1 spec-1">' + price + '</div>' +
+                        '<div class="mt-1 mb-1 spec-1">' + address + '</div>' + '<div class="mt-1 mb-1 spec-1">' + phone + '</div>' + '</div><div class="align-items-center align-content-center col-md-3 border-left mt-1"><div class="d-flex flex-row align-items-center">' +
+                        '<h4 class="mr-1">' + queueStatus + '</h4></h4></div><h6 class=' + hourStatus);
+
+                    var starTotal = 5;
+                    var rating = doc.data().rating;
+                    const starPercentage = (rating / starTotal) * 100;
+                    const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
+                    document.querySelector(`.${partName} .stars-inner`).style.width = starPercentageRounded;
                     addRestaurantListener(doc.id);
                     if (queueReady) {
                         getUserQueueReady(doc.id);
@@ -428,11 +461,21 @@ function orderRestaurantInTime(option) {
                     }
                     var address = doc.data().address;
                     var phone = doc.data().phone;
+                    var partName = name.slice(0, 3);
+                    var star = '</h3><div class="stars-outer ' + partName + '"><div class="stars-inner"></div></div>';
+                    console.log(star);
                     $("#restaurantsList").append('<div class="container mt-5 mb-5"><div class="d-flex justify-content-center row"><div class="col-md-15">' +
                         '<div class="row p-2 bg-white border rounded"><div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded" src="./images/' +
-                        image + '"></div><div class="col-md-6 mt-1"><h3>' + name + '</h3><div class="stars-outer"><div class="stars-inner"></div></div>' +
-                        '<div class="mt-1 mb-1 spec-1">' + cusineHtml + '</span></div><div class="mt-1 mb-1 spec-1">' + price + '</div></div><div class="align-items-center align-content-center col-md-3 border-left mt-1"><div class="d-flex flex-row align-items-center">' +
+                        image + '"></div><div class="col-md-6 mt-1"><h3>' + name + star +
+                        '<div class="mt-1 mb-1 spec-1">' + cusineHtml + '</span></div><div class="mt-1 mb-1 spec-1">' + price + '</div>' +
+                        '<div class="mt-1 mb-1 spec-1">' + address + '</div>' + '<div class="mt-1 mb-1 spec-1">' + phone + '</div>' + '</div><div class="align-items-center align-content-center col-md-3 border-left mt-1"><div class="d-flex flex-row align-items-center">' +
                         '<h4 class="mr-1">' + queueStatus + '</h4></h4></div><h6 class=' + hourStatus);
+
+                    var starTotal = 5;
+                    var rating = doc.data().rating;
+                    const starPercentage = (rating / starTotal) * 100;
+                    const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
+                    document.querySelector(`.${partName} .stars-inner`).style.width = starPercentageRounded;
                     addRestaurantListener(doc.id);
                     if (queueReady) {
                         getUserQueueReady(doc.id);
@@ -486,11 +529,21 @@ function orderRestaurantInPrice(option) {
                     }
                     var address = doc.data().address;
                     var phone = doc.data().phone;
+                    var partName = name.slice(0, 3);
+                    var star = '</h3><div class="stars-outer ' + partName + '"><div class="stars-inner"></div></div>';
+                    console.log(star);
                     $("#restaurantsList").append('<div class="container mt-5 mb-5"><div class="d-flex justify-content-center row"><div class="col-md-15">' +
                         '<div class="row p-2 bg-white border rounded"><div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded" src="./images/' +
-                        image + '"></div><div class="col-md-6 mt-1"><h3>' + name + '</h3><div class="stars-outer"><div class="stars-inner"></div></div>' +
-                        '<div class="mt-1 mb-1 spec-1">' + cusineHtml + '</span></div><div class="mt-1 mb-1 spec-1">' + price + '</div></div><div class="align-items-center align-content-center col-md-3 border-left mt-1"><div class="d-flex flex-row align-items-center">' +
+                        image + '"></div><div class="col-md-6 mt-1"><h3>' + name + star +
+                        '<div class="mt-1 mb-1 spec-1">' + cusineHtml + '</span></div><div class="mt-1 mb-1 spec-1">' + price + '</div>' +
+                        '<div class="mt-1 mb-1 spec-1">' + address + '</div>' + '<div class="mt-1 mb-1 spec-1">' + phone + '</div>' + '</div><div class="align-items-center align-content-center col-md-3 border-left mt-1"><div class="d-flex flex-row align-items-center">' +
                         '<h4 class="mr-1">' + queueStatus + '</h4></h4></div><h6 class=' + hourStatus);
+
+                    var starTotal = 5;
+                    var rating = doc.data().rating;
+                    const starPercentage = (rating / starTotal) * 100;
+                    const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
+                    document.querySelector(`.${partName} .stars-inner`).style.width = starPercentageRounded;
                     addRestaurantListener(doc.id);
                     if (queueReady) {
                         getUserQueueReady(doc.id);
@@ -540,11 +593,21 @@ function orderRestaurantInPrice(option) {
                     }
                     var address = doc.data().address;
                     var phone = doc.data().phone;
+                    var partName = name.slice(0, 3);
+                    var star = '</h3><div class="stars-outer ' + partName + '"><div class="stars-inner"></div></div>';
+                    console.log(star);
                     $("#restaurantsList").append('<div class="container mt-5 mb-5"><div class="d-flex justify-content-center row"><div class="col-md-15">' +
                         '<div class="row p-2 bg-white border rounded"><div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded" src="./images/' +
-                        image + '"></div><div class="col-md-6 mt-1"><h3>' + name + '</h3><div class="stars-outer"><div class="stars-inner"></div></div>' +
-                        '<div class="mt-1 mb-1 spec-1">' + cusineHtml + '</span></div><div class="mt-1 mb-1 spec-1">' + price + '</div></div><div class="align-items-center align-content-center col-md-3 border-left mt-1"><div class="d-flex flex-row align-items-center">' +
-                        '<h4 class="mr-1">' + queueStatus + '</h4></div><h6 class=' + hourStatus);
+                        image + '"></div><div class="col-md-6 mt-1"><h3>' + name + star +
+                        '<div class="mt-1 mb-1 spec-1">' + cusineHtml + '</span></div><div class="mt-1 mb-1 spec-1">' + price + '</div>' +
+                        '<div class="mt-1 mb-1 spec-1">' + address + '</div>' + '<div class="mt-1 mb-1 spec-1">' + phone + '</div>' + '</div><div class="align-items-center align-content-center col-md-3 border-left mt-1"><div class="d-flex flex-row align-items-center">' +
+                        '<h4 class="mr-1">' + queueStatus + '</h4></h4></div><h6 class=' + hourStatus);
+
+                    var starTotal = 5;
+                    var rating = doc.data().rating;
+                    const starPercentage = (rating / starTotal) * 100;
+                    const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
+                    document.querySelector(`.${partName} .stars-inner`).style.width = starPercentageRounded;
                     addRestaurantListener(doc.id);
                     if (queueReady) {
                         getUserQueueReady(doc.id);

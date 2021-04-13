@@ -91,16 +91,34 @@ function sayHello() {
 }
 sayHello();
 
-function viewHistory() {
-    db.collection("history")
-        .get()
-        .then(function (snap) {
-            snap.forEach(function (doc) {
-                var name = doc.data().Restaurant_Name;
-                var date = doc.data().Date;
-                var newdom = "<p> " + name + " " + date + "</p>";
-                $("#history-goes-here").append(newdom);
-            })
-        })
-}
-viewHistory();
+// function viewHistory() {
+//     db.collection("history")
+//         .get()
+//         .then(function (snap) {
+//             snap.forEach(function (doc) {
+//                 var name = doc.data().Restaurant_Name;
+//                 var date = doc.data().Date;
+//                 var newdom = "<p> " + name + " " + date + "</p>";
+//                 $("#history-goes-here").append(newdom);
+//             })
+//         })
+// }
+// viewHistory();
+
+// function getQueuePage() {
+//     firebase.auth().onAuthStateChanged(function(user){
+//         if (user) {
+//             $('#queueLink').addEventListener('click', function () {
+//                 window.location.href = "./queue.html?userId=" + user.uid;
+//             })
+            
+//         } else {
+//             $('#queueLink').addEventListener('click', function () {
+//                 window.location.href = "./login.html";
+//             })
+            
+//         }
+//     })
+// }
+
+// getQueuePage();
