@@ -50,7 +50,11 @@ body {
   color: #444;
   border: .06em solid transparent;
   border-radius: 1em;
-  background-color: #BDE0FE;
+  background-color: #eff7f6;
+}
+
+[id^="button"] {
+  background-color: #cee26b;
 }
 
 .btn:hover {
@@ -139,3 +143,26 @@ body {
   display: inline-block;
   margin-right: 5px;
 }
+
+.navbar{
+  background-color: #f5cb5c;
+}
+
+.footerLink {
+  text-decoration: none;
+  color: #444;
+  font-weight: 600;
+}
+
+#mapLink {
+  color: cornflowerblue;
+}
+
+#mapLink:hover {
+  color:#e04e60;
+}
+
+.footerLink:hover {
+  color:#e04e60;
+}
+

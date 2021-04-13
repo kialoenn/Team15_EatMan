@@ -11,6 +11,9 @@ function initMap() {
         center: place,
         zoom: 16,
         mapId: "8d193001f940fde3",
+        mapTypeControl: false,
+        streetViewControl: false,
+
     });
     infoWindow = new google.maps.InfoWindow();
     const locationButton = document.createElement("button");
@@ -309,7 +312,6 @@ displayRestautant();
 function pagination() {
     var items = $("#restaurantsList .container");
     var numItems = items.length;
-    console.log(numItems);
     var perPage = 2;
 
     items.slice(perPage).hide();
@@ -320,6 +322,8 @@ function pagination() {
         prevText: "&laquo;",
         nextText: "&raquo;",
         onPageClick: function (pageNumber) {
+            document.body.scrollTop = 500; // For Safari
+            document.documentElement.scrollTop = 500; // For Chrome, Firefox, IE and Opera
             var showFrom = perPage * (pageNumber - 1);
             var showTo = showFrom + perPage;
             items.hide().slice(showFrom, showTo).show();
@@ -674,14 +678,15 @@ function checkQueueReady() {
                                             if (result.isConfirmed) {
                                                 Swal.fire('Thank you for using our App!', '', 'success');
                                                 resetQueue(user.uid, true, queueId, userName);
-                                                
                                             } else if (result.isDenied) {
-                                                Swal.fire('Take your time, we will notify the host ~!', '', 'info');
-                                                notifyOwner(queueId, true);
+                                                Swal.fire('Take your time, we will notify the host ~!', '', 'info')
+                                                    .then(function () {
+                                                        notifyOwner(queueId, user.uid, userName, partySize);
+                                                    });
+                                                //notifyOwner(queueId, user.uid, userName, partySize);
                                             } else {
                                                 Swal.fire('Your resercation is cancled!', '', 'info');
-                                                resetQueue(user.uid, false, queueId, userName);
-                                                notifyOwner(queueId, false);
+                                                resetQueue(user.uid, false, queueId, userName)
                                             }
                                         })
                                     }
@@ -698,7 +703,7 @@ checkQueueReady();
 function resetQueue(userId, confirmed, currentQueue, userName) {
     console.log(currentQueue);
     if (confirmed) {
-        
+
         var updateInfo = db.collection("users")
             .doc(userId);
 
@@ -709,55 +714,38 @@ function resetQueue(userId, confirmed, currentQueue, userName) {
                 visited: time,
             }),
             currentQueue: "",
-        }).then(function() {
+        }).then(function () {
             updateConfirmList(currentQueue, true, userName);
         })
     } else {
-        
+
         var updateInfo = db.collection("users")
             .doc(userId);
         updateInfo.update({
             currentQueue: "",
-        }).then(function() {
+        }).then(function () {
             updateConfirmList(currentQueue, false, userName);
         })
     }
-    
+
 }
 
 function deleteUserQueue(ownerId, userId, userName, partySize) {
-    // var old;
-    // db.collection("restaurants")
-    // .doc(ownerId)
-    // .get()
-    // .then(function(doc) {
-        
-    //     old = doc.data().queue;
-    //     var newQueue = [];
-    //     if (old.length > 1) {
-    //         newQueue = old.slice(1);
-    //     }
-        
-    //     var count = doc.data().queueCount;
-    //     if (count > 0) {
-    //         db.collection("restaurants")
-    //         .doc(ownerId)
-    //         .update({
-    //             queue: newQueue,
-    //             queueCount: firebase.firestore.FieldValue.increment(-1)
-    //         })
-    //     }
-    // })
     db.collection("restaurants")
-    .doc(ownerId)
-    .update({
-        queue: firebase.firestore.FieldValue.arrayRemove({id: userId, name: userName, size: partySize})
-    })
+        .doc(ownerId)
+        .update({
+            queue: firebase.firestore.FieldValue.arrayRemove({
+                id: userId,
+                name: userName,
+                size: partySize
+            })
+        })
 }
+
 function updateConfirmList(ownerId, arrival, userName) {
     if (arrival) {
         var updateInfo = db.collection("restaurants")
-        .doc(ownerId);
+            .doc(ownerId);
 
         var time = firebase.firestore.Timestamp.now();
 
@@ -769,7 +757,7 @@ function updateConfirmList(ownerId, arrival, userName) {
         })
     } else {
         var updateInfo = db.collection("restaurants")
-        .doc(ownerId);
+            .doc(ownerId);
 
         var time = firebase.firestore.Timestamp.now();
 
@@ -781,10 +769,17 @@ function updateConfirmList(ownerId, arrival, userName) {
         })
     }
 }
-function notifyOwner(ownerId, stay) {
-    if (stay) {
-        db.collection("restaurants")
-            .doc(ownerId)
-            .get()
-    }
+
+function notifyOwner(ownerId, userId, userName, partySize) {
+    var time = firebase.firestore.Timestamp.now();
+    db.collection("restaurants")
+        .doc(ownerId)
+        .update({
+            hold: firebase.firestore.FieldValue.arrayUnion({
+                name: userName,
+                id: userId,
+                size: partySize,
+                visited: time,
+            }),
+        })
 }
