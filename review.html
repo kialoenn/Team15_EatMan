@@ -2,14 +2,14 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <title>My BCIT Project</title>
-    <meta name="comp1800 boilerplate code" content="my bcit project">
-    <meta name="author" content="BCIT">
-    <link rel="stylesheet" href="styles/mainStyle.css">
+  <meta charset="utf-8">
+  <title>My BCIT Project</title>
+  <meta name="comp1800 boilerplate code" content="my bcit project">
+  <meta name="author" content="BCIT">
+  <link rel="stylesheet" href="styles/mainStyle.css">
 
-    <!-- Bootstrap for Mobile-first, and JQuery -->
-   <!-- Bootstrap for Mobile-first, and JQuery -->
+  <!-- Bootstrap for Mobile-first, and JQuery -->
+  <!-- Bootstrap for Mobile-first, and JQuery -->
   <script src="https://kit.fontawesome.com/3190eb8516.js" crossorigin="anonymous"></script>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -28,27 +28,27 @@
 
 
 
-    <!-- Optional styles and scripts of your own -->
-    <style>
-        /* Set the size of the div element that contains the map */
-        #map {
-            height: 400px;
-            /* The height is 400 pixels */
-            width: 100%;
-            /* The width is the width of the web page */
-        }
-    </style>
-    
+  <!-- Optional styles and scripts of your own -->
+  <style>
+    /* Set the size of the div element that contains the map */
+    #map {
+      height: 400px;
+      /* The height is 400 pixels */
+      width: 100%;
+      /* The width is the width of the web page */
+    }
+  </style>
+
 
 </head>
 
 <body>
 
-    <!-------------------------------------->
-    <!-- The following is HTML for layout -->
-    <!-------------------------------------->
-    <!-- Header Navigation Bar -->
-    <nav class="fixed-top navbar navbar-expand-lg navbar-light">
+  <!-------------------------------------->
+  <!-- The following is HTML for layout -->
+  <!-------------------------------------->
+  <!-- Header Navigation Bar -->
+  <nav class="fixed-top navbar navbar-expand-lg navbar-light">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">EatMan</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -77,99 +77,102 @@
   <br>
   <br>
 
-    <div class="container">
+  <div class="container">
 
-        <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Add Review
-  </button>
-  
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      Add Review
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Review</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
             <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">Input review</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-              </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-outline-danger"><a href="review.html">Submit review</a></button>
+              <label for="exampleFormControlTextarea1" class="form-label">Input review</label>
+              <textarea class="form-control" id="submission" rows="3"></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-outline-danger" id="submit"><a href="review.html">Submit
+                review</a></button>
+          </div>
         </div>
       </div>
     </div>
+
+    <div id="reviewsHere"></div>"
+
+
   </div>
-        
+  <br>
+  <br>
+  <br>
+  <div class="fixed-bottom ">
+    <footer class="navbar justify-content-around fixed-bottom">
+      <span class="fa-layers fa-fw">
+        <a href="./search.html" id="searchLink" class="footerLink">
+          <i class="fas fa-search fa-lg"></i>
+          <span class="fa-layers-text" style="margin-left: -10px;">Search</span>
+        </a>
+      </span>
 
-    </div>
-    <br>
-    <br>
-    <br>
-    <div class="fixed-bottom ">
-      <footer class="navbar justify-content-around fixed-bottom">
-        <span class="fa-layers fa-fw">
-          <a href="./search.html" id="searchLink" class="footerLink">
-            <i class="fas fa-search fa-lg"></i>
-            <span class="fa-layers-text" style="margin-left: -10px;">Search</span>
-          </a>
-        </span>
-          
-        <span class="fa-layers fa-fw">
-          <a href="./search.html" id="mapLink" class="footerLink">
-            <i class="far fa-map fa-lg"></i>
-            <span class="fa-layers-text" style="margin-left: -3px;">Map</span>
-          </a>
-        </span>
-        <span class="fa-layers fa-fw">
-          <a href="./search.html" id="queueLink" class="footerLink">
-            <i class="far fa-clock fa-lg"></i>
-            <span class="fa-layers-text" style="margin-left: -10px;">Queue</span>
-          </a>
-        </span>
-        <span class="fa-layers fa-fw">
-          <a href="./Profile.html" id="userLink" class="footerLink">
-            <i class="far fa-user-circle fa-lg"></i>
-            <span class="fa-layers-text" style="margin-left: -3px;">User</span>
-          </a>
-        </span>
-          
-          
-          
-          
-  
-      </footer>
-    </div>
+      <span class="fa-layers fa-fw">
+        <a href="./search.html" id="mapLink" class="footerLink">
+          <i class="far fa-map fa-lg"></i>
+          <span class="fa-layers-text" style="margin-left: -3px;">Map</span>
+        </a>
+      </span>
+      <span class="fa-layers fa-fw">
+        <a href="./search.html" id="queueLink" class="footerLink">
+          <i class="far fa-clock fa-lg"></i>
+          <span class="fa-layers-text" style="margin-left: -10px;">Queue</span>
+        </a>
+      </span>
+      <span class="fa-layers fa-fw">
+        <a href="./Profile.html" id="userLink" class="footerLink">
+          <i class="far fa-user-circle fa-lg"></i>
+          <span class="fa-layers-text" style="margin-left: -3px;">User</span>
+        </a>
+      </span>
 
 
-    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
 
-    <!----------------------------------------------->
-    <!-- JS: Boostrap, Firebase, API related    -->
-    <!----------------------------------------------->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
-        </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
-        </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-firestore.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.js"></script>
-    <!--------------------------------------------------------------------->
-    <!-- JS files: Your own JavaScript functions included here    -->
-    <!--------------------------------------------------------------------->
-    <script src="scripts/firebaseAPI.js"></script>
-    <script src="scripts/function.js"></script>
-    <script src="scripts/mainFunction.js"></script>
-    <script src="scripts/profile.js"></script>
+
+
+    </footer>
+  </div>
+
+
+  <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+
+  <!----------------------------------------------->
+  <!-- JS: Boostrap, Firebase, API related    -->
+  <!----------------------------------------------->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
+    </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
+    </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.js"></script>
+  <!--------------------------------------------------------------------->
+  <!-- JS files: Your own JavaScript functions included here    -->
+  <!--------------------------------------------------------------------->
+  <script src="scripts/firebaseAPI.js"></script>
+  <script src="scripts/function.js"></script>
+  <script src="scripts/mainFunction.js"></script>
+  <script src="scripts/reviews.js"></script>
 </body>
 
 
