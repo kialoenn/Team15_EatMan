@@ -78,32 +78,33 @@
   <br>
 
     <div class="container">
-        <h1 class="display-4">Edit Profile</h1>
-        <div>
-            <img src="images/45_donald_trump.jpg" alt="Donald" width="300">
+
+        <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Add Review
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <br>
-        <div class="row">
-            <div class="col">
-              <input type="text" class="form-control" id="firstName" placeholder="First name" aria-label="First name">
-            </div>
-            <div class="col">
-              <input type="text" class="form-control" id="lastName" placeholder="Last name" aria-label="Last name">
-            </div>
-          </div>
-          <br>
-        <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="email" placeholder="name@example.com">
-            <label for="floatingInput">Email address</label>
-          </div>
-          <div>
-            <input type="text" class="form-control" id="number" placeholder="Phone Number">
-          </div>
-          <br>
-          <br>
-          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button class="btn btn-primary" type="submit" id="update"><a href="/Profile.html">Update</a></button>
-          </div>
+        <div class="modal-body">
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Input review</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+              </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-outline-danger"><a href="review.html">Submit review</a></button>
+        </div>
+      </div>
+    </div>
+  </div>
         
 
     </div>
@@ -168,7 +169,7 @@
     <script src="scripts/firebaseAPI.js"></script>
     <script src="scripts/function.js"></script>
     <script src="scripts/mainFunction.js"></script>
-
+    <script src="scripts/profile.js"></script>
 </body>
 
 
