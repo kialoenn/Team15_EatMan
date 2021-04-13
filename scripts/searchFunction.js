@@ -4,8 +4,7 @@ $(document).ready(function () {
     function getSearch() {
         document.getElementById("searchButton").addEventListener('click', function () {
             var pattern = document.getElementById("pattern").value;
-
-            queryResultByName(pattern);
+            window.location.href = "./result.html?pattern=" + pattern;
             //queryResultByCuisine(pattern);
         })
     }
@@ -17,7 +16,7 @@ $(document).ready(function () {
             .get()
             .then(function (snap) {
                 snap.forEach(function (doc) {
-                    
+
                 })
             })
 

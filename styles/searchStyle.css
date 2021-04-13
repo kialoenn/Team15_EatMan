@@ -1,5 +1,6 @@
 body {
-    overflow: hidden;
+    overflow-x: hidden;
+    margin: 10px;
 }
 .active {
     color: cornflowerblue;
@@ -26,7 +27,7 @@ body {
     position: relative;
 }
 
-.container {
+.searchBar {
     position: absolute;
     width: 70%;
     top: 30%;
