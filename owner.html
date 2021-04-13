@@ -23,6 +23,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript" src="./scripts/jquery.simplePagination.js"></script>
     <link rel="stylesheet" href="styles/mainStyle.css">
+    <link rel="stylesheet" href="styles/ownerStyle.css">
 
 </head>
 
@@ -54,13 +55,27 @@
     <br>
     <br>
     <br>
-    
-    <h1 class="display-3 text-center"><span id="restaurantName">Owner</span> Waitlist</h1>
-    <h2 class="display-5">Guests in queue:</h2>
-    <button class="btn bg-info" id="addQueue"> Add guest</button>
-    <button id="removeQueue"> Next guest</button>
 
-    <div id="queueList"></div>
+    <h1 class="display-3 text-center"><span id="restaurantName">Owner</span> Waitlist</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <h2 class="display-5">Guests in Queue:</h2>
+                <button class="btn bg-info" id="addQueue"> Add guest</button>
+                <button class="btn bg-info" id="removeQueue"> Next guest</button>
+                <div id="queueList"></div>
+            </div>
+        
+            <div class="col-sm">
+                <h2 class="display-5">Guests Coming:</h2>
+                <div id="holdList"></div>
+            </div>
+        </div>
+        
+    </div>
+    
+
+
 
     <!----------------------------------------------->
     <!-- JS: Boostrap, Firebase, API related    -->

@@ -5,7 +5,6 @@ function displayOwner() {
                 .doc(owner.uid)
                 .get()
                 .then(function (doc) {
-                    console.log();
                     var name = doc.data().name;
                     $("#restaurantName").text(name);
                     displayQueue(owner.uid);
@@ -24,13 +23,40 @@ function displayQueue(id) {
                 .doc(id)
                 .onSnapshot(function (doc) {
                     var queue = doc.data().queue;
-                    var t1 = "<ol>";
+                    var info = "<ol>";
                     queue.forEach(function (guest) {
-                        t1 += "<li>" + guest.name + "</li>";
+                        if (guest.size != "N/A") {
+                            info += "<li><pre>" + guest.name + "                   PartySize: " + guest.size + "     </pre></li>";
+                        } else {
+                            info += "<li>" + guest.name + "</li>";
+                        }
+                        
                     })
-                    t1 += "</ol>";
-                    $("#queueList").html(t1);
+                    info += "</ol>";
+                    $("#queueList").html(info);
                     
+                })
+        }
+    })
+}
+
+function confirmListener() {
+    firebase.auth().onAuthStateChanged(function (owner) {
+        if (owner) {
+            db.collection("restaurants")
+                .doc(owner.uid)
+                .onSnapshot(function (doc) {
+                    var confirm = doc.data().hold;
+                    console.log(confirm.name);
+                    var info = "<ol>";
+                    if (confirm.length > 0) {
+                        confirm.forEach(function (guest){
+                            console.log(guest.name);
+                            info += "<li>" + guest.name + " is on the way!</li>";
+                        }) 
+                    }
+                    info += "</ol>";
+                    $("#holdList").html(info);
                 })
         }
     })
@@ -43,11 +69,12 @@ function addInHouseQueueListener(id) {
         db.collection("restaurants")
                 .doc(id)
                 .update({
-                    queue: firebase.firestore.FieldValue.arrayUnion({name: "guest", id: Date.now(), size: "N/A"}),
+                    queue: firebase.firestore.FieldValue.arrayUnion({name: "Guest waiting outside", id: Date.now(), size: "N/A"}),
                     queueCount: firebase.firestore.FieldValue.increment(1),
                 })
                 .then(function() {
                     displayQueue(id);
+                    confirmListener();
                 })
     })
 }
@@ -78,6 +105,7 @@ function addRemoveQueueListener(id) {
                 })
                 .then(function() {
                     displayQueue(id);
+                    confirmListener();
                 })
             }
 

@@ -17,14 +17,14 @@ function checkUserQueue(uid) {
         .then(function (doc) {
             var queueRestaurant = doc.data().currentQueue;
             if (queueRestaurant != "") {
-                displayUserQueue(queueRestaurant);
+                displayUserQueue(queueRestaurant, uid, doc.data().name, doc.data().partySize);
             } else {
                 $('#queueStatus').html("<h1 class = 'display-4'>You do not have any active queue at this time</h1>");
             }
         })
 }
 
-function displayUserQueue(ownerId) {
+function displayUserQueue(ownerId, userId, userName, partySize) {
     db.collection("restaurants")
         .doc(ownerId)
         .get()
@@ -44,24 +44,12 @@ function displayUserQueue(ownerId) {
             var hour = day.getHours();
             console.log(doc.data().hours.start);
             var hourStatus = "";
-            var queueReady = true;
             var queueStatus = "";
-            if (hour >= doc.data().hours.start && hour < doc.data().hours.end) {
-                if (queue == 0) {
-                    hourStatus += '"text-success">Open' + '</h6><div class="d-flex flex-column mt-4">' + '<button id="' + doc.id + '" class="btn btn-primary btn-sm" type="button">Detail</button> <br>' +
-                        '</div></div></div></div></div></div>';
-                    queueReady = false;
-                } else {
-                    hourStatus += '"text-success">Open' + '</h6><div class="d-flex flex-column mt-4">' + '<button id="' + doc.id + '" class="btn btn-primary btn-sm" type="button">Detail</button> <br>' +
-                        '<button class="btn btn-primary btn-lg" type="button" id = "button' + doc.id + '">Queue UP</button></div></div></div></div></div></div>';
-                    queueReady = true;
-                }
-                queueStatus = queue + " Minutes &#128337";
-            } else {
-                hourStatus += '"text-danger">Close' + '</h6><div class="d-flex flex-column mt-4"><button id="' + doc.id + '" class="btn btn-primary btn-sm" type="button">Detail</button></div></div></div></div></div></div>';
-                queueReady = false;
-                queueStatus = "";
-            }
+            hourStatus += '"text-success">Open' + '</h6><div class="d-flex flex-column mt-4">' + '<button id="cancle" class="btn btn-primary btn-sm" type="button">Cancle</button> <br>' +
+                '<button class="btn btn-primary btn-lg" type="button" id = "confirm">Confirm</button></div></div></div></div></div></div>';
+
+            queueStatus = queue + " Minutes &#128337";
+
             var address = doc.data().address;
             var phone = doc.data().phone;
             var partName = name.slice(0, 3);
@@ -78,12 +66,66 @@ function displayUserQueue(ownerId) {
             const starPercentage = (rating / starTotal) * 100;
             const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
             document.querySelector(`.${partName} .stars-inner`).style.width = starPercentageRounded;
-            if (queueReady) {
-                //getUserQueueReady(doc.id);
-            }
-        })
 
+            async function checkConfirmStatus() {
+                $('#cancle').on('click', function () {
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert the reversion!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, cancle it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            deleteUserQueue(ownerId, userId, userName, partySize);
+                            resetQueue(userId, false, ownerId, userName);
+                            Swal.fire(
+                                'Cancled!',
+                                'Your reservation has been cancled.',
+                                'success'
+                            ).then(function() {
+                                window.location.reload();
+                            })
+                        }
+                    })
+                })
+
+                $('#confirm').on('click', function () {
+                    Swal.fire({
+                        title: 'Have you arrived at the restaurant?',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes!',
+                        cancelButtonText: "Not Yet...",
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            deleteUserQueue(ownerId, userId, userName, partySize);
+                            resetQueue(userId, true, ownerId, userName);
+                            Swal.fire(
+                                'Arrived',
+                                'Thank you for using our App!',
+                                'success'
+                            ).then(function() {
+                                window.location.reload();
+                            })
+                        }
+                    })
+                })
+            }
+            checkConfirmStatus();
+
+        })
 }
+
+
+
+
+
+
+
 
 function checkQueueReady() {
     firebase.auth().onAuthStateChanged(function (user) {
@@ -127,7 +169,6 @@ function checkQueueReady() {
                                                     .then(function () {
                                                         notifyOwner(queueId, user.uid, userName, partySize);
                                                     });
-                                                //notifyOwner(queueId, user.uid, userName, partySize);
                                             } else {
                                                 Swal.fire('Your resercation is cancled!', '', 'info');
                                                 resetQueue(user.uid, false, queueId, userName);
@@ -160,7 +201,7 @@ function resetQueue(userId, confirmed, currentQueue, userName) {
             }),
             currentQueue: "",
         }).then(function () {
-            updateConfirmList(currentQueue, true, userName);
+            updateConfirmList(currentQueue, true, userName, userId);
         })
     } else {
 
@@ -169,7 +210,7 @@ function resetQueue(userId, confirmed, currentQueue, userName) {
         updateInfo.update({
             currentQueue: "",
         }).then(function () {
-            updateConfirmList(currentQueue, false, userName);
+            updateConfirmList(currentQueue, false, userName, userId);
         })
     }
 
@@ -188,7 +229,7 @@ function deleteUserQueue(ownerId, userId, userName, partySize) {
         })
 }
 
-function updateConfirmList(ownerId, arrival, userName) {
+function updateConfirmList(ownerId, arrival, userName, userId) {
     if (arrival) {
         var updateInfo = db.collection("restaurants")
             .doc(ownerId);
@@ -200,6 +241,10 @@ function updateConfirmList(ownerId, arrival, userName) {
                 name: userName,
                 visited: time,
             }),
+            hold: firebase.firestore.FieldValue.arrayRemove({
+                id: userId,
+                name: userName,
+            })
         })
     } else {
         var updateInfo = db.collection("restaurants")
@@ -212,6 +257,10 @@ function updateConfirmList(ownerId, arrival, userName) {
                 name: userName,
                 visited: time,
             }),
+            hold: firebase.firestore.FieldValue.arrayRemove({
+                id: userId,
+                name: userName,
+            })
         })
     }
 }

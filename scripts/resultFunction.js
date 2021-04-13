@@ -16,8 +16,6 @@ function queryResultByName(pattern) {
             snap.forEach(function (doc) {
                 getRestaurantDetail(doc.data(), doc.id);
             })
-        }).then(function () {
-
         })
 }
 

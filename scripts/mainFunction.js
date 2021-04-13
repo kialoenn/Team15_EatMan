@@ -85,13 +85,13 @@ function initMap() {
                         maxWidth: 250,
                     });
                     if (doc.data().queue.length <= 3) {
-
+                        const name = doc.data().name;
                         const loc = doc.data().geometry;
                         marker = new google.maps.Marker({
                             position: loc,
                             map: map,
                             icon: greenIcon,
-
+                            title: name,
                         });
                     } else {
                         const loc = doc.data().geometry;
@@ -114,7 +114,6 @@ function initMap() {
     mapDisplayRestautant();
 };
 
-
 function changeDisplay(resList) {
     $("#queue-menu").html('<li><a class="dropdown-item" id = "clickLeast">Least busy</a></li><li><a class="dropdown-item" id = "clickMost">Most busy</a></li>');
     $("#price-menu").html('<li><a class="dropdown-item" id = "clickCheap">Low to High</a></li><li><a class="dropdown-item" id = "clickExpensive">High to low</a></li>');
@@ -123,37 +122,37 @@ function changeDisplay(resList) {
     changeDefaultDisplay(resList);
 
     $("#clickLeast").on("click", function () {
-        console.log(resList);
+
         resList.sort((a, b) => (a.queue > b.queue) ? 1 : -1);
         changeDefaultDisplay(resList);
     })
 
     $("#clickMost").on("click", function () {
-        console.log(resList);
+
         resList.sort((a, b) => (a.queue < b.queue) ? 1 : -1);
         changeDefaultDisplay(resList);
     })
 
     $("#clickNear").on("click", function () {
-        console.log(resList);
+
         resList.sort((a, b) => (a.dist > b.dist) ? 1 : -1);
         changeDefaultDisplay(resList);
     })
 
     $("#clickFar").on("click", function () {
-        console.log(resList);
+
         resList.sort((a, b) => (a.dist < b.dist) ? 1 : -1);
         changeDefaultDisplay(resList);
     })
 
     $("#clickCheap").on("click", function () {
-        console.log(resList);
+
         resList.sort((a, b) => (a.price > b.price) ? 1 : -1);
         changeDefaultDisplay(resList);
     })
 
     $("#clickExpensive").on("click", function () {
-        console.log(resList);
+
         resList.sort((a, b) => (a.price < b.price) ? 1 : -1);
         changeDefaultDisplay(resList);
     })
@@ -283,7 +282,6 @@ function displayRestautant() {
                 var queue = doc.data().queue.length * 5;
                 var day = new Date();
                 var hour = day.getHours();
-                console.log(doc.data().hours.start);
                 var hourStatus = "";
                 var queueReady = true;
                 var queueStatus = "";
@@ -307,7 +305,6 @@ function displayRestautant() {
                 var phone = doc.data().phone;
                 var partName = name.slice(0, 3);
                 var star = '</h3><div class="stars-outer ' + partName + '"><div class="stars-inner"></div></div>';
-                console.log(star);
                 $("#restaurantsList").append('<div class="container mt-5 mb-5"><div class="d-flex justify-content-center row"><div class="col-md-15">' +
                     '<div class="row p-2 bg-white border rounded"><div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded" src="./images/' +
                     image + '"></div><div class="col-md-6 mt-1"><h3>' + name + star +
@@ -637,7 +634,6 @@ function getUserQueueReady(id) {
                     userName = doc.data().name;
                     userId = user.uid;
                     addQueueListener(userName, id, userId);
-                    //addReadyListener(userId);
                 })
         }
     })
@@ -747,9 +743,8 @@ function checkQueueReady() {
                                             } else if (result.isDenied) {
                                                 Swal.fire('Take your time, we will notify the host ~!', '', 'info')
                                                     .then(function () {
-                                                        notifyOwner(queueId, user.uid, userName, partySize);
+                                                        notifyOwner(queueId, user.uid, userName);
                                                     });
-                                                //notifyOwner(queueId, user.uid, userName, partySize);
                                             } else {
                                                 Swal.fire('Your resercation is cancled!', '', 'info')
                                                 .then(function() {
@@ -784,7 +779,7 @@ function resetQueue(userId, confirmed, currentQueue, userName) {
             }),
             currentQueue: "",
         }).then(function () {
-            updateConfirmList(currentQueue, true, userName);
+            updateConfirmList(currentQueue, true, userName, userId);
         })
     } else {
 
@@ -793,7 +788,7 @@ function resetQueue(userId, confirmed, currentQueue, userName) {
         updateInfo.update({
             currentQueue: "",
         }).then(function () {
-            updateConfirmList(currentQueue, false, userName);
+            updateConfirmList(currentQueue, false, userName, userId);
         })
     }
 
@@ -813,7 +808,7 @@ function deleteUserQueue(ownerId, userId, userName, partySize) {
         })
 }
 
-function updateConfirmList(ownerId, arrival, userName) {
+function updateConfirmList(ownerId, arrival, userName,userId) {
     if (arrival) {
         var updateInfo = db.collection("restaurants")
             .doc(ownerId);
@@ -825,6 +820,10 @@ function updateConfirmList(ownerId, arrival, userName) {
                 name: userName,
                 visited: time,
             }),
+            hold: firebase.firestore.FieldValue.arrayRemove({
+                id: userId,
+                name: userName,
+            })
         })
     } else {
         var updateInfo = db.collection("restaurants")
@@ -841,16 +840,13 @@ function updateConfirmList(ownerId, arrival, userName) {
     }
 }
 
-function notifyOwner(ownerId, userId, userName, partySize) {
-    var time = firebase.firestore.Timestamp.now();
+function notifyOwner(ownerId, userId, userName) {
     db.collection("restaurants")
         .doc(ownerId)
         .update({
             hold: firebase.firestore.FieldValue.arrayUnion({
                 name: userName,
                 id: userId,
-                size: partySize,
-                visited: time,
             }),
         })
 }

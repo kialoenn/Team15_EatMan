@@ -1,6 +1,4 @@
 $(document).ready(function () {
-    console.log("read");
-
     function getSearch() {
         document.getElementById("searchButton").addEventListener('click', function () {
             var pattern = document.getElementById("pattern").value;
