@@ -15,10 +15,10 @@ function editProfile() {
 
                 db.collection("profile").doc("editProfile")
                 .set({
-                    "first": firstName,
-                    "last": lastName,
-                    "email": email,
-                    "number": number
+                    first: firstName,
+                    last: lastName,
+                    email: email,
+                    number: number
                 }, {
                     merge: true
                 })
