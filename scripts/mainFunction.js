@@ -4,8 +4,8 @@
 function initMap() {
     // Create the map.
     let place = {
-        lat: 49.2810718309468,
-        lng: -123.11683978616684
+        lat: 49.23907286232973, 
+        lng: -122.9648191551294
     };
     const map = new google.maps.Map(document.getElementById("map"), {
         center: place,
