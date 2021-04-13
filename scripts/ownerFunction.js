@@ -43,9 +43,8 @@ function addInHouseQueueListener(id) {
         db.collection("restaurants")
                 .doc(id)
                 .update({
-                    queue: firebase.firestore.FieldValue.arrayUnion({name: "guest", id: Date.now()}),
+                    queue: firebase.firestore.FieldValue.arrayUnion({name: "guest", id: Date.now(), size: "N/A"}),
                     queueCount: firebase.firestore.FieldValue.increment(1),
-                    size: "N/A",
                 })
                 .then(function() {
                     displayQueue(id);

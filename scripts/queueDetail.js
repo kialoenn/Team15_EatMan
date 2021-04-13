@@ -19,7 +19,7 @@ function checkUserQueue(uid) {
             if (queueRestaurant != "") {
                 displayUserQueue(queueRestaurant);
             } else {
-                $('#queueStatus').html("<h1 class = 'display-4'>You currently do not in any queue</h1>")
+                $('#queueStatus').html("<h1 class = 'display-4'>You do not have any active queue at this time</h1>");
             }
         })
 }
@@ -121,6 +121,7 @@ function checkQueueReady() {
                                             if (result.isConfirmed) {
                                                 Swal.fire('Thank you for using our App!', '', 'success');
                                                 resetQueue(user.uid, true, queueId, userName);
+                                                $('#queueStatus').html("<h1 class = 'display-4'>You do not have any active queue at this time</h1>");
                                             } else if (result.isDenied) {
                                                 Swal.fire('Take your time, we will notify the host ~!', '', 'info')
                                                     .then(function () {
@@ -129,7 +130,8 @@ function checkQueueReady() {
                                                 //notifyOwner(queueId, user.uid, userName, partySize);
                                             } else {
                                                 Swal.fire('Your resercation is cancled!', '', 'info');
-                                                resetQueue(user.uid, false, queueId, userName)
+                                                resetQueue(user.uid, false, queueId, userName);
+                                                $('#queueStatus').html("<h1 class = 'display-4'>You do not have any active queue at this time</h1>");
                                             }
                                         })
                                     }
