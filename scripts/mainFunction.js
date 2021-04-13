@@ -714,7 +714,6 @@ function checkQueueReady() {
                 .then(function (doc) {
                     var queueId = doc.data().currentQueue;
                     var userName = doc.data().name;
-                    var partySize = doc.data().partySize;
                     if (queueId != "") {
                         console.log(queueId);
                         db.collection("restaurants")
@@ -723,6 +722,7 @@ function checkQueueReady() {
                                 if (doc.data().queue[0]) {
                                     console.log(doc.data().queue[0]);
                                     if (doc.data().queue[0].id == user.uid) {
+                                        var partySize = doc.data().queue[0].size;
                                         Swal.fire({
                                             title: "Your table is ready!",
                                             text: "Please arrive and check with our host!",
@@ -739,8 +739,11 @@ function checkQueueReady() {
                                         }).then((result) => {
                                             deleteUserQueue(queueId, user.uid, userName, partySize);
                                             if (result.isConfirmed) {
-                                                Swal.fire('Thank you for using our App!', '', 'success');
-                                                resetQueue(user.uid, true, queueId, userName);
+                                                Swal.fire('Thank you for using our App!', '', 'success')
+                                                .then(function() {
+                                                    resetQueue(user.uid, true, queueId, userName);
+                                                });
+                                                
                                             } else if (result.isDenied) {
                                                 Swal.fire('Take your time, we will notify the host ~!', '', 'info')
                                                     .then(function () {
@@ -748,8 +751,11 @@ function checkQueueReady() {
                                                     });
                                                 //notifyOwner(queueId, user.uid, userName, partySize);
                                             } else {
-                                                Swal.fire('Your resercation is cancled!', '', 'info');
-                                                resetQueue(user.uid, false, queueId, userName)
+                                                Swal.fire('Your resercation is cancled!', '', 'info')
+                                                .then(function() {
+                                                    resetQueue(user.uid, false, queueId, userName);
+                                                });
+                                                
                                             }
                                         })
                                     }
@@ -794,6 +800,7 @@ function resetQueue(userId, confirmed, currentQueue, userName) {
 }
 
 function deleteUserQueue(ownerId, userId, userName, partySize) {
+    console.log("id: " + userId + "name: " + userName + "size: " + partySize);
     db.collection("restaurants")
         .doc(ownerId)
         .update({

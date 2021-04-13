@@ -179,7 +179,6 @@ function checkQueueReady() {
                 .then(function (doc) {
                     var queueId = doc.data().currentQueue;
                     var userName = doc.data().name;
-                    var partySize = doc.data().partySize;
                     if (queueId != "") {
                         console.log(queueId);
                         db.collection("restaurants")
@@ -188,6 +187,7 @@ function checkQueueReady() {
                                 if (doc.data().queue[0]) {
                                     console.log(doc.data().queue[0]);
                                     if (doc.data().queue[0].id == user.uid) {
+                                        var partySize = doc.data().queue[0].size;
                                         Swal.fire({
                                             title: "Your table is ready!",
                                             text: "Please arrive and check with our host!",
