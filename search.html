@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>My BCIT Project</title>
+    <meta name="comp1800 boilerplate code" content="my bcit project">
+    <meta name="author" content="BCIT">
+
+    <!-- Bootstrap for Mobile-first, and JQuery -->
+    <script src="https://kit.fontawesome.com/3190eb8516.js" crossorigin="anonymous"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.css" />
+    <meta name="Waitlistport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <!-- Optional styles and scripts of your own -->
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="./scripts/jquery.simplePagination.js"></script>
+    <link rel="stylesheet" href="styles/mainStyle.css">
+    <link rel="stylesheet" href="styles/searchStyle.css">
+
+</head>
+
+<body>
+
+    <!-------------------------------------->
+    <!-- The following is HTML for layout -->
+    <!-------------------------------------->
+    <!-- Header Navigation Bar -->
+    <nav class="fixed-top navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">EatMan</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="#">Login/Logout</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Pricing</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <br>
+    <br>
+
+    <!-- Search bar -->
+    <div id="imageBg" class="row">
+        <div class="container text-center ">
+            <div class="input-group mb-2 border rounded-pill p-2 ">
+                <input type="search" placeholder="What're you searching for?" aria-describedby="searchButton"
+                    class="form-control bg-none border-0" id="pattern">
+                <div class="input-group-append border-0">
+                    <button id="searchButton" type="button" class="btn btn-link text-success"><i
+                            class="fa fa-search"></i></button>
+                </div> 
+            </div>
+            <p class="mt-0">Dont know what to search? Click button below!</p>
+            <button type="button" class="btn btn-warning browse">Browse Restaurant</button>
+        </div>
+    </div>
+
+
+
+    <!-- Bottom navbar -->
+    <div class="fixed-bottom ">
+        <footer class="navbar justify-content-around fixed-bottom">
+            <span class="fa-layers fa-fw">
+                <a href="./search.html" id="searchLink" class="footerLink active">
+                    <i class="fas fa-search fa-lg"></i>
+                    <span class="fa-layers-text" style="margin-left: -10px;">Search</span>
+                </a>
+            </span>
+
+            <span class="fa-layers fa-fw">
+                <a href="./main.html" id="mapLink" class="footerLink">
+                    <i class="far fa-map fa-lg"></i>
+                    <span class="fa-layers-text" style="margin-left: -3px;">Map</span>
+                </a>
+            </span>
+            <span class="fa-layers fa-fw">
+                <a href="./search.html" id="queueLink" class="footerLink">
+                    <i class="far fa-clock fa-lg"></i>
+                    <span class="fa-layers-text" style="margin-left: -10px;">Queue</span>
+                </a>
+            </span>
+            <span class="fa-layers fa-fw">
+                <a href="./search.html" id="userLink" class="footerLink">
+                    <i class="far fa-user-circle fa-lg"></i>
+                    <span class="fa-layers-text" style="margin-left: -3px;">User</span>
+                </a>
+            </span>
+
+
+
+
+
+        </footer>
+    </div>
+    <!----------------------------------------------->
+    <!-- JS: Boostrap, Firebase, API related    -->
+    <!----------------------------------------------->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.js"></script>
+
+
+
+
+    <script src="scripts/firebaseAPI.js"></script>
+    <!--------------------------------------------------------------------->
+    <!-- JS files: Your own JavaScript functions included here    -->
+    <!--------------------------------------------------------------------->
+    <script src="./scripts/searchFunction.js"></script>
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <!-- Optional: include a polyfill for ES6 Promises for IE11 -->
+    <script src="//cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.js"></script>
+
+</body>

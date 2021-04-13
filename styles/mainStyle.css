@@ -154,13 +154,10 @@ body {
   font-weight: 600;
 }
 
-#mapLink {
+.active {
   color: cornflowerblue;
 }
 
-#mapLink:hover {
-  color:#e04e60;
-}
 
 .footerLink:hover {
   color:#e04e60;
