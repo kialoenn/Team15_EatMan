@@ -57,23 +57,14 @@
     </nav>
     <br>
     <br>
-
-    <!-- Search bar -->
-    <div id="imageBg" class="row">
-        <div class="container text-center searchBar">
-            <div class="input-group mb-2 border rounded-pill p-2 ">
-                <input type="search" placeholder="What're you searching for?" aria-describedby="searchButton"
-                    class="form-control bg-none border-0" id="pattern">
-                <div class="input-group-append border-0">
-                    <button id="searchButton" type="button" class="btn btn-link text-success"><i
-                            class="fa fa-search"></i></button>
-                </div> 
-            </div>
-            <p class="mt-0">Dont know what to search? Click button below!</p>
-            <button type="button" class="btn btn-warning browse">Browse Restaurant</button>
-        </div>
-    </div>
-
+    <br>
+    <h2 class="display-3" id="resultPrompt">Your search For</h2>
+    <hr>
+    <div id="result"></div>
+    <div id="message"></div>
+    <br>
+    <br>
+    <br>
 
 
     <!-- Bottom navbar -->
@@ -85,7 +76,6 @@
                     <span class="fa-layers-text" style="margin-left: -10px;">Search</span>
                 </a>
             </span>
-
             <span class="fa-layers fa-fw">
                 <a href="./main.html" id="mapLink" class="footerLink">
                     <i class="far fa-map fa-lg"></i>
@@ -104,11 +94,6 @@
                     <span class="fa-layers-text" style="margin-left: -3px;">User</span>
                 </a>
             </span>
-
-
-
-
-
         </footer>
     </div>
     <!----------------------------------------------->
@@ -130,7 +115,7 @@
     <!--------------------------------------------------------------------->
     <!-- JS files: Your own JavaScript functions included here    -->
     <!--------------------------------------------------------------------->
-    <script src="./scripts/searchFunction.js"></script>
+    <script src="./scripts/resultFunction.js"></script>
 
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <!-- Optional: include a polyfill for ES6 Promises for IE11 -->
