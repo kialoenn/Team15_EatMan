@@ -1,0 +1,7 @@
+#imageBg {
+    background-image: url("../images/backgroundProfile.jpeg");
+    height: 100%;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+}
