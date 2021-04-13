@@ -801,7 +801,8 @@ function deleteUserQueue(ownerId, userId, userName, partySize) {
                 id: userId,
                 name: userName,
                 size: partySize
-            })
+            }),
+            queueCount: firebase.firestore.FieldValue.increment(-1),
         })
 }
 
