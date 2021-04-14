@@ -68,7 +68,7 @@ function displayUserQueue(ownerId, userId, userName, partySize) {
             document.querySelector(`.${partName} .stars-inner`).style.width = starPercentageRounded;
 
             async function checkConfirmStatus() {
-                $('#cancle').on('click', function () {
+                $('#cancel').on('click', function () {
                     Swal.fire({
                         title: 'Are you sure?',
                         text: "You won't be able to revert the reversion!",
