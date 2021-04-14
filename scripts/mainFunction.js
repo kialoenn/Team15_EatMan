@@ -804,7 +804,6 @@ function deleteUserQueue(ownerId, userId, userName, partySize) {
                 name: userName,
                 size: partySize
             }),
-            queueCount: firebase.firestore.FieldValue.increment(-1),
         })
 }
 
@@ -823,7 +822,8 @@ function updateConfirmList(ownerId, arrival, userName,userId) {
             hold: firebase.firestore.FieldValue.arrayRemove({
                 id: userId,
                 name: userName,
-            })
+            }),
+            queueCount: firebase.firestore.FieldValue.increment(-1),
         })
     } else {
         var updateInfo = db.collection("restaurants")
@@ -836,6 +836,7 @@ function updateConfirmList(ownerId, arrival, userName,userId) {
                 name: userName,
                 visited: time,
             }),
+            queueCount: firebase.firestore.FieldValue.increment(-1),
         })
     }
 }
