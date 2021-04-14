@@ -45,7 +45,7 @@ function displayUserQueue(ownerId, userId, userName, partySize) {
             console.log(doc.data().hours.start);
             var hourStatus = "";
             var queueStatus = "";
-            hourStatus += '"text-success">Open' + '</h6><div class="d-flex flex-column mt-4">' + '<button id="cancle" class="btn btn-primary btn-sm" type="button">Cancle</button> <br>' +
+            hourStatus += '"text-success">Open' + '</h6><div class="d-flex flex-column mt-4">' + '<button id="cancel" class="btn btn-primary btn-sm" type="button">Cancle</button> <br>' +
                 '<button class="btn btn-primary btn-lg" type="button" id = "confirm">Confirm</button></div></div></div></div></div></div>';
 
             queueStatus = queue + " Minutes &#128337";
