@@ -1,9 +1,6 @@
 ## My Web Application (EatMan)
-* Author:
-    Man Sun : edit index.html, I was trying to add google Map API to page but it seems like this feature does not support client-side browser, so I guess this would work in Firebase.
-    Harleen Kaur Saini : created main.html , I created some content
 
-
+* [Live Link](https://eatman.web.app/)
 * [General info](#general-info)
 * [Technologies](#technologies)
 * [Contents](#content)
