@@ -25,13 +25,19 @@ Content of the project folder:
 ```
  Top level of project folder: 
 ├── .gitignore               # Git ignore file
-├── index.html               # landing HTML file, this is what users see when you come to url
 ├── 404.html               # landing HTML file, this is what users see when you come to url
+├── profile.html               # landing HTML file, this is what users see when you come to url
+├── details.html               # landing HTML file, this is what users see when you come to url
 ├── index.html               # landing HTML file, this is what users see when you come to url
-├── index.html               # landing HTML file, this is what users see when you come to url
-├── index.html               # landing HTML file, this is what users see when you come to url
-├── index.html               # landing HTML file, this is what users see when you come to url
-├── index.html               # landing HTML file, this is what users see when you come to url
+├── login.html               # landing HTML file, this is what users see when you come to url
+├── main.html               # landing HTML file, this is what users see when you come to url
+├── owner.html               # landing HTML file, this is what users see when you come to url
+├── ownerLogin.html               # landing HTML file, this is what users see when you come to url
+├── owner.html               # landing HTML file, this is what users see when you come to url
+├── ownerLogin.html               # landing HTML file, this is what users see when you come to url
+├── ownerLogin.html               # landing HTML file, this is what users see when you come to url
+├── ownerLogin.html               # landing HTML file, this is what users see when you come to url
+├── ownerLogin.html               # landing HTML file, this is what users see when you come to url
 └── README.md
 
 It has the following subfolders and files:
