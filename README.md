@@ -1,17 +1,17 @@
-          #          # My Web Application (EatMan)
+## My Web Application (EatMan)
 
 
-* [General info](          #general-info)
-* [Technologies](          #technologies)
-* [Contents](          #content)
+* [General info](#general-info)
+* [Technologies](#technologies)
+* [Contents](#content)
 
-          #          # Live Link
+## Live Link
 https://eatman.web.app/
 
-          #          # General Info
+## General Info
 This browser based web application is to help user find crowdedness of local restaurants and make a quick virtual line-up
 	
-          #          # Technologies
+## Technologies
 Technologies used for this project:
 * HTML, CSS
 * JavaScript
@@ -21,8 +21,8 @@ Technologies used for this project:
 * FontAwesome 5
 * simplePagination
 * Google Map API
-	
-          #          # Content
+
+## Content
 Content of the project folder:
 
 ```
