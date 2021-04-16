@@ -1,9 +1,12 @@
 ## My Web Application (EatMan)
 
-* [Live Link](https://eatman.web.app/)
+
 * [General info](#general-info)
 * [Technologies](#technologies)
 * [Contents](#content)
+
+## Live Linl
+https://eatman.web.app/
 
 ## General Info
 This browser based web application to help user find crowdedness of local restaurants and make a quick virtual line-up
