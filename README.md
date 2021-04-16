@@ -5,17 +5,19 @@
 * [Technologies](#technologies)
 * [Contents](#content)
 
-## Live Linl
+## Live Link
 https://eatman.web.app/
 
 ## General Info
-This browser based web application to help user find crowdedness of local restaurants and make a quick virtual line-up
+This browser based web application is to help user find crowdedness of local restaurants and make a quick virtual line-up
 	
 ## Technologies
 Technologies used for this project:
 * HTML, CSS
 * JavaScript
 * Bootstrap
+* JQuery
+* Firebase - Firestore, Authentication
 	
 ## Content
 Content of the project folder:
@@ -23,6 +25,12 @@ Content of the project folder:
 ```
  Top level of project folder: 
 ├── .gitignore               # Git ignore file
+├── index.html               # landing HTML file, this is what users see when you come to url
+├── 404.html               # landing HTML file, this is what users see when you come to url
+├── index.html               # landing HTML file, this is what users see when you come to url
+├── index.html               # landing HTML file, this is what users see when you come to url
+├── index.html               # landing HTML file, this is what users see when you come to url
+├── index.html               # landing HTML file, this is what users see when you come to url
 ├── index.html               # landing HTML file, this is what users see when you come to url
 └── README.md
 
