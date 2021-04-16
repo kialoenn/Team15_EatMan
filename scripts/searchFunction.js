@@ -1,4 +1,11 @@
+/**
+ * Author: Man Sun
+ */
+
 $(document).ready(function () {
+    /**
+     * This function will direct user to search result page is user click the search button
+     */
     function getSearch() {
         document.getElementById("searchButton").addEventListener('click', function () {
             var pattern = document.getElementById("pattern").value;
@@ -7,16 +14,4 @@ $(document).ready(function () {
         })
     }
     getSearch();
-
-    function queryResultByName(pattern) {
-        db.collection("restaurants")
-            .where("name", "==", pattern)
-            .get()
-            .then(function (snap) {
-                snap.forEach(function (doc) {
-
-                })
-            })
-
-    }
 })

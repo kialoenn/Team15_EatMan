@@ -1,4 +1,11 @@
-/** Write database functions, only need to call one time */
+/**
+ * Author: Man Sun
+ */
+
+
+/** 
+ * Write database functions, please do not call this function, this will overwrite the existing DB
+ * */
 function writeRestaurants() {
     var restaurantsRef = db.collection("restaurants");
     restaurantsRef.add({
@@ -9,8 +16,16 @@ function writeRestaurants() {
         },
         phone: "(604)430-5000",
         address: "530 Robson St, Vancouver, BC V6B 2B7",
-        time: "8:00AM TO 10:30PM",
-        queue: ['in-house', 'in-house', 'in-house', 'in-house', 'in-house', 'in-house'],
+        cancle: [],
+        confirm: [],
+        cuisine: ["Asian", "Japanese"],
+        hole: [],
+        hours: {end: 20, start: 8},
+        icon: "japadog.jpg",
+        price: 1,
+        queue: [],
+        queueCount: 0,
+        rating: 4.5,
     });
     restaurantsRef.add({
         name: "NoodleBox",
@@ -20,8 +35,16 @@ function writeRestaurants() {
         },
         phone: "(604)430-5000",
         address: "839 Homer St, Vancouver, BC V6B 2W2",
-        time: "8:00AM TO 10:30PM",
-        queue: ['in-house', 'in-house', 'in-house', 'in-house', 'in-house', 'in-house'],
+        cancle: [],
+        confirm: [],
+        cuisine: ["Asian", "Chinese"],
+        hole: [],
+        hours: {end: 20, start: 8},
+        icon: "noodlebox.jpg",
+        price: 2,
+        queue: [],
+        queueCount: 0,
+        rating: 3.5,
     });
     restaurantsRef.add({
         name: "Gotham Steakhouse & Cocktail Bar",
@@ -31,8 +54,16 @@ function writeRestaurants() {
         },
         phone: "(604)605-8282",
         address: "615 Seymour St, Vancouver, BC V6B 3K3",
-        time: "8:00AM TO 11:30PM",
-        queue: ['in-house', 'in-house', 'in-house', 'in-house', 'in-house', 'in-house'],
+        cancle: [],
+        confirm: [],
+        cuisine: ["Steak"],
+        hole: [],
+        hours: {end: 21, start: 11},
+        icon: "japadog.jpg",
+        price: 4,
+        queue: [],
+        queueCount: 0,
+        rating: 4.5,
     });
     restaurantsRef.add({
         name: "Bacchus Restaurant & Lounge",
@@ -42,8 +73,16 @@ function writeRestaurants() {
         },
         phone: "(604)608-5319",
         address: "845 Hornby St, Vancouver, BC V6Z 1V1",
-        time: "8:00AM TO 10:30PM",
-        queue: ['in-house', 'in-house', 'in-house', 'in-house', 'in-house', 'in-house'],
+        cancle: [],
+        confirm: [],
+        cuisine: ["French"],
+        hole: [],
+        hours: {end: 22, start: 11},
+        icon: "bacchus.jpg",
+        price: 3,
+        queue: [],
+        queueCount: 0,
+        rating: 4.3,
     });
     restaurantsRef.add({
         name: "Earls Kitchen + Bar",
@@ -53,25 +92,16 @@ function writeRestaurants() {
         },
         phone: "(604)682-6700",
         address: "905 Hornby St, Vancouver, BC V6Z 1V3",
-        time: "8:00AM TO 10:30PM",
-        queue: ['in-house', 'in-house', 'in-house', 'in-house', 'in-house', 'in-house'],
-    });
-}
-function pastQueues() {
-    var restaurantsRef = db.collection("history");
-    restaurantsRef.add({
-        Restaurant_Name: "Milestone",
-        Date: "2021-02-27",
-    })
-}
-
-function writeProfile() {
-    var profileRef = db.collection("PROFILE");
-    profileRef.add({
-        USERNAME: "donalllllld",
-        NAME: "Donald Trump",
-        PHONE: "(604)430-5000",
-        PROFILE_IMG: "donald.jpg",
+        cancle: [],
+        confirm: [],
+        cuisine: ["Asian", "Japanese"],
+        hole: [],
+        hours: {end: 21, start: 12},
+        icon: "japadog.jpg",
+        price: 1,
+        queue: [],
+        queueCount: 0,
+        rating: 4.5,
     });
 }
 
@@ -90,35 +120,3 @@ function sayHello() {
     })
 }
 sayHello();
-
-// function viewHistory() {
-//     db.collection("history")
-//         .get()
-//         .then(function (snap) {
-//             snap.forEach(function (doc) {
-//                 var name = doc.data().Restaurant_Name;
-//                 var date = doc.data().Date;
-//                 var newdom = "<p> " + name + " " + date + "</p>";
-//                 $("#history-goes-here").append(newdom);
-//             })
-//         })
-// }
-// viewHistory();
-
-// function getQueuePage() {
-//     firebase.auth().onAuthStateChanged(function(user){
-//         if (user) {
-//             $('#queueLink').addEventListener('click', function () {
-//                 window.location.href = "./queue.html?userId=" + user.uid;
-//             })
-            
-//         } else {
-//             $('#queueLink').addEventListener('click', function () {
-//                 window.location.href = "./login.html";
-//             })
-            
-//         }
-//     })
-// }
-
-// getQueuePage();

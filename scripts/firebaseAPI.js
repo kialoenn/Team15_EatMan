@@ -1,3 +1,6 @@
+/**
+ * Firebase API
+ */
 var firebaseConfig = {
     apiKey: "AIzaSyAN9eMlLSukTwO2MSjZqZHfVdHqglpK-FE",
     authDomain: "eatman.firebaseapp.com",

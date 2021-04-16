@@ -1,3 +1,10 @@
+/**
+ * Author Man Sun
+ */
+
+/**
+ * Get the restaurant stored in the url.
+ */
 function getPattern() {
     const parsedUrl = new URL(window.location.href);
     var id = parsedUrl.searchParams.get("id");
@@ -5,11 +12,15 @@ function getPattern() {
 }
 getPattern();
 
+/**
+ * This function get the specific restuarant by parsedUrl, and pass the html code for restaurant detail.
+ * @param id restaurant id
+ */
 function queryDetail(id) {
     db.collection("restaurants")
         .doc(id)
-        .get()
-        .then(function (doc) {
+        .get() // Read every restaurant store in collection
+        .then(function (doc) { 
             var image = doc.data().icon;
             var name = doc.data().name;
             var cusineHtml = "<span>";
@@ -23,10 +34,10 @@ function queryDetail(id) {
             var queue = doc.data().queue.length * 5;
             var day = new Date();
             var hour = day.getHours();
-            console.log(doc.data().hours.start);
             var hourStatus = "";
             var queueReady = true;
             var queueStatus = "";
+            // Check the restaurant open time, if close, disable the queue up button
             if (hour >= doc.data().hours.start && hour < doc.data().hours.end) {
                 if (queue == 0) {
                     hourStatus += '"text-success">Open' + '</h6><div class="d-flex flex-column mt-4">' + 
@@ -56,8 +67,8 @@ function queryDetail(id) {
             $('#restaurantDetail').append("<h1 class = 'display-4'>Reviews:</h1>");
             db.collection("reviews")
             .get()
-            .then(function(snap) {
-                snap.forEach(function( doc) {
+            .then(function(snap) { // Read the reviews collection
+                snap.forEach(function( doc) { // For every restaurant, display its review
                     $('#restaurantDetail').append("<hr><h1 class = 'display-6'>"+ doc.data().review +"</h1>");
                 })                                
             })
@@ -66,9 +77,6 @@ function queryDetail(id) {
             const starPercentage = (rating / starTotal) * 100;
             const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
             document.querySelector(`.${partName} .stars-inner`).style.width = starPercentageRounded;
-            if (queueReady) {
-                //getUserQueueReady(doc.id);
-            }
         })
 }
 
